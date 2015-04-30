@@ -5,7 +5,7 @@
 	<artifactId>hellocommunity</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Springside :: Example :: QuickStart</name>
+	<name>hellocommunity</name>
 
 	<properties>
 		<!-- 主要依赖库的版本定义 -->
