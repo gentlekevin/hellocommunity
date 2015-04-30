@@ -29,8 +29,13 @@ public class User extends IdEntity {
 	private String password;
 	private String salt;
 	private String roles;
+	private String sex;
+	private Date birthday;
+	private String phone;
+	private String address;
+
+	private String pic;
 	private Date registerDate;
-	
 
 	public User() {
 	}
@@ -39,7 +44,7 @@ public class User extends IdEntity {
 		this.id = id;
 	}
 
-	@NotBlank
+
 	public String getLoginName() {
 		return loginName;
 	}
@@ -48,7 +53,7 @@ public class User extends IdEntity {
 		this.loginName = loginName;
 	}
 
-	@NotBlank
+	
 	public String getName() {
 		return name;
 	}
@@ -91,6 +96,14 @@ public class User extends IdEntity {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
+	@JsonIgnore
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 
 	@Transient
 	@JsonIgnore
@@ -98,6 +111,44 @@ public class User extends IdEntity {
 		// 角色列表在数据库中实际以逗号分隔字符串存储，因此返回不能修改的List.
 		return ImmutableList.copyOf(StringUtils.split(roles, ","));
 	}
+
+	
+	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+
+
+	public String getPhone() {
+		return phone;
+	}
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
 
 	// 设定JSON序列化时的日期格式
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
@@ -109,8 +160,11 @@ public class User extends IdEntity {
 		this.registerDate = registerDate;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
 }

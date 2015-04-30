@@ -50,7 +50,11 @@ public class AccountService {
 	public User findUserByLoginName(String loginName) {
 		return userDao.findByLoginName(loginName);
 	}
-
+    
+	public User findUserByPhone(String phone){
+		return userDao.findByPhone(phone);
+	}
+	
 	public void registerUser(User user) {
 		entryptPassword(user);
 		user.setRoles("user");
@@ -60,11 +64,19 @@ public class AccountService {
 	}
     
 	public User registerRestUser(User user) {
+	
 		entryptRestPassword(user);
 		user.setRoles("commonuser");
 		user.setRegisterDate(clock.getCurrentDate());
 
 		return userDao.save(user);
+	}
+	public boolean restUserExist(User user) {
+		User realUser = findUserByLoginName(user.getLoginName());
+		if(realUser!=null)return true;
+		else return false;
+		
+		
 	}
 	
 	/**
