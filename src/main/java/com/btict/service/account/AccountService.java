@@ -72,7 +72,7 @@ public class AccountService {
 		return userDao.save(user);
 	}
 	public boolean restUserExist(User user) {
-		User realUser = findUserByLoginName(user.getLoginName());
+		User realUser = findUserByPhone(user.getPhone());
 		if(realUser!=null)return true;
 		else return false;
 		
@@ -86,9 +86,9 @@ public class AccountService {
 	 */
 	public User validateRestUser(User user){
 			
-		User realUser = findUserByLoginName(user.getLoginName());
+		User realUser = findUserByPhone(user.getPhone());
 		if(realUser==null)return null;
-		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), null, HASH_INTERATIONS);
+		byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), null, HASH_INTERATIONS);
 		if(Encodes.encodeHex(hashPassword).equals(realUser.getPassword())) return realUser;
 		else return null;
 		
@@ -102,6 +102,11 @@ public class AccountService {
 			entryptPassword(user);
 		}
 		userDao.save(user);
+	}
+   
+	public User updateRestUser(User user) {
+		
+		return userDao.save(user);
 	}
 
 	public void deleteUser(Long id) {

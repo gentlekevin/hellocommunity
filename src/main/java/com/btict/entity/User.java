@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -33,8 +34,7 @@ public class User extends IdEntity {
 	private Date birthday;
 	private String phone;
 	private String address;
-
-	private String pic;
+	private String headerImgUrl;
 	private Date registerDate;
 
 	public User() {
@@ -96,13 +96,15 @@ public class User extends IdEntity {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-	@JsonIgnore
-	public String getPic() {
-		return pic;
+
+	
+
+	public String getHeaderImgUrl() {
+		return headerImgUrl;
 	}
 
-	public void setPic(String pic) {
-		this.pic = pic;
+	public void setHeaderImgUrl(String headerImgUrl) {
+		this.headerImgUrl = headerImgUrl;
 	}
 
 	@Transient
@@ -111,8 +113,6 @@ public class User extends IdEntity {
 		// 角色列表在数据库中实际以逗号分隔字符串存储，因此返回不能修改的List.
 		return ImmutableList.copyOf(StringUtils.split(roles, ","));
 	}
-
-	
 	
 	public String getSex() {
 		return sex;
@@ -123,7 +123,7 @@ public class User extends IdEntity {
 	}
 	
 
-
+	
 	public String getPhone() {
 		return phone;
 	}
