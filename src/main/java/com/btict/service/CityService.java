@@ -19,7 +19,8 @@ public class CityService {
   public List<City> findAllCity(){
 	 
   return (List<City>) cityDAO.findAll();
-		 
+  
+  
  }
 
 public CityDAO getCityDAO() {

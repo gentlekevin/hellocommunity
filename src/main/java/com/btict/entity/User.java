@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
@@ -36,7 +38,7 @@ public class User extends IdEntity {
 	private String address;
 	private String headerImgUrl;
 	private Date registerDate;
-
+    private Community community;
 	public User() {
 	}
 
@@ -166,5 +168,17 @@ public class User extends IdEntity {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "community_id")
+	public Community getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Community community) {
+		this.community = community;
+	}
+	
+	
 	
 }

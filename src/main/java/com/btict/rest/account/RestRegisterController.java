@@ -33,7 +33,7 @@ public class RestRegisterController {
 	  
 		
        if(accountService.restUserExist(user))
-    	throw new RestException(HttpStatus.FORBIDDEN, RestException.errorResult("该手机号已经注册！"));
+    	throw new RestException(HttpStatus.OK, RestException.errorResult("该手机号已经注册！"));
        	Map  map = new HashMap();
 		user =  accountService.registerRestUser(user);
 		if(user ==null)
@@ -41,7 +41,7 @@ public class RestRegisterController {
 		else {
 			
 			map.put("result", "0");
-			map.put("userId", user.getId());
+			map.put("userId", String.valueOf(user.getId()));
 			map.put("phone", user.getPhone());
 			map.put("password", user.getPassword());
 			map.put("name", user.getName()==null?"":user.getName());
