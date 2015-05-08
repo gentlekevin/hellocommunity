@@ -72,8 +72,8 @@ public Map UpdateProfile(@RequestParam(value="json") String json){
 		@RequestParam(value="json") String json,HttpServletRequest request){
 	String fileSeparator=  System.getProperty("file.separator");
 	StringBuffer ctxPath = new StringBuffer();
-	ctxPath.append(request.getSession().getServletContext().getRealPath("/"));
-	String uploadfilePackage = fileSeparator+"upload"+fileSeparator+"headImg"+fileSeparator;
+	//ctxPath.append(request.getSession().getServletContext().getRealPath("/"));
+	String uploadfilePackage =fileSeparator+"usr"+ fileSeparator+"upload"+fileSeparator+"headImg"+fileSeparator;
     ctxPath.append(uploadfilePackage);
     
     String fileName =DateUtil.getCurrentTimestamp()+mult.getOriginalFilename();

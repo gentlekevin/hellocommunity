@@ -1,21 +1,19 @@
 package com.btict.rest.comunity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springside.modules.web.MediaTypes;
 
-import com.btict.entity.City;
 import com.btict.entity.Community;
 import com.btict.rest.StringToMapUtil;
-import com.btict.service.CityService;
 import com.btict.service.CommunityService;
 
 
@@ -37,7 +35,9 @@ public class RestCommunityController {
 	       Community community  = cityService.findByCityId(cityId);
 		Map map = new HashMap();
 		map.put("result", "0");
-		map.put("data",new RestCommunity(String.valueOf(community.getId()), community.getName()));
+		List<RestCommunity> list = new ArrayList<RestCommunity>();
+		list.add(new RestCommunity(String.valueOf(community.getId()), community.getName()));
+		map.put("data",list);
 		return map;
 	}
 	

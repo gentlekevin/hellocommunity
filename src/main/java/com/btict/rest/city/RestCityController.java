@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springside.modules.web.MediaTypes;
-
 import com.btict.entity.City;
 import com.btict.service.CityService;
 
@@ -43,29 +40,24 @@ public class RestCityController {
 	 
 	 
 	 public class RestCity{
-			private String userId;
-			private String userName;
-			
-			
-			public RestCity(String userId, String userName) {
+			private String cityId;
+			private String cityName;
+			public RestCity(String cityId, String cityName) {
 				super();
-				this.userId = userId;
-				this.userName = userName;
+				this.cityId = cityId;
+				this.cityName = cityName;
 			}
-			public String getUserId() {
-				return userId;
+			public String getCityId() {
+				return cityId;
 			}
-			public void setUserId(String userId) {
-				this.userId = userId;
+			public void setCityId(String cityId) {
+				this.cityId = cityId;
 			}
-			public String getUserName() {
-				return userName;
+			public String getCityName() {
+				return cityName;
 			}
-			public void setUserName(String userName) {
-				this.userName = userName;
+			public void setCityName(String cityName) {
+				this.cityName = cityName;
 			}
-			
-	 } 
-	
+	}
 }
-
