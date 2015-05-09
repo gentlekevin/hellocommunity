@@ -44,7 +44,7 @@ public class ProfileController {
 		updateCurrentUserName(user.getName());
 		return "redirect:/";
 	}
-	@RequestMapping(value="/personInfo",method = RequestMethod.GET)
+	@RequestMapping(value="/personInfo",method ={RequestMethod.GET,RequestMethod.POST} )
 	public String personInfo(Model model){
 		Long id = getCurrentUserId();
 		model.addAttribute("user", accountService.getUser(id));
