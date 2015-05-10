@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.btict.entity.User;
 import com.btict.repository.UserDao;
 import com.btict.service.ServiceException;
 import com.btict.service.account.ShiroDbRealm.ShiroUser;
+
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Clock;
 import org.springside.modules.utils.Encodes;
@@ -25,7 +27,7 @@ import org.springside.modules.utils.Encodes;
  */
 // Spring Service Bean的标识.
 @Component
-@Transactional
+
 public class AccountService {
 
 	public static final String HASH_ALGORITHM = "SHA-1";
@@ -41,15 +43,15 @@ public class AccountService {
 	public List<User> getAllUser() {
 		return (List<User>) userDao.findAll();
 	}
-
+	@Transactional(readOnly = true)
 	public User getUser(Long id) {
 		return userDao.findOne(id);
 	}
-
+	@Transactional(readOnly = true)
 	public User findUserByLoginName(String loginName) {
 		return userDao.findByLoginName(loginName);
 	}
-    
+	@Transactional(readOnly = true)
 	public User findUserByPhone(String phone){
 		return userDao.findByPhone(phone);
 	}
@@ -70,6 +72,8 @@ public class AccountService {
 
 		return userDao.save(user);
 	}
+	
+	@Transactional(readOnly = true)
 	public boolean restUserExist(User user) {
 		User realUser = findUserByPhone(user.getPhone());
 		if(realUser!=null)return true;
@@ -83,6 +87,7 @@ public class AccountService {
 	 * @param user user from form
 	 * @return realUser object
 	 */
+	@Transactional(readOnly = true)
 	public User validateRestUser(User user){
 			
 		User realUser = findUserByPhone(user.getPhone());
@@ -97,12 +102,31 @@ public class AccountService {
 	
 	
 	public void updateUser(User user) {
+		
 		if (StringUtils.isNotBlank(user.getPlainPassword())) {
 			entryptPassword(user);
 		}
 		userDao.save(user);
 	}
-   
+	
+	public String updateUserPassword(long id,String password,String plainPassword){
+		User user = this.getUser(id);
+		byte[] hashPassword = Digests.sha1(password.getBytes(), Encodes.decodeHex(user.getSalt()), HASH_INTERATIONS);
+		String oldPassword = Encodes.encodeHex(hashPassword);
+     	if(oldPassword.equals(user.getPassword())){
+			user.setPlainPassword(plainPassword);
+			if (StringUtils.isNotBlank(user.getPlainPassword())) {
+				entryptPassword(user);
+			}
+
+			userDao.save(user);
+			return "";
+		}else{
+			//user = userDao.findOne(user.getId());
+			return"旧密码不正确！";
+		}
+	}
+	   
 	public User updateRestUser(User user) {
 		
 		return userDao.save(user);

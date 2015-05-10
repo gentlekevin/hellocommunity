@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-<!DOCTYPE html>
+
 <html lang="zh-cn">
 <body>
 	<div class="line-big">
@@ -38,7 +37,10 @@
 						<td width="110" align="right">登陆账号：</td>
 						<td>${user.loginName}</td>
 						<td align="right">性别：</td>
-						<td>${user.sex}</td>
+						<td>  <c:choose>  
+                            <c:when test="${user.sex=='1'}"> 男 </c:when> 
+                            <c:otherwise> 女 </c:otherwise>  
+                            </c:choose>    </td>
 					</tr>
 					<tr>
 						<td align="right">注册时间：</td>
@@ -48,9 +50,9 @@
 					</tr>
 					<tr>
 						<td align="right">操作：</td>
-						<td><a class="button border-blue button-little" href="${ctx}/profile">修改密码</a></td>
+						<td><a style="cursor:pointer;"   class="button border-blue button-little" id="${ctx}/account/updatePasswordForm" onclick="show(this.id);">修改密码</a></td>
 						<td align="right">操作：</td>
-						<td><a class="button border-blue button-little" href="${ctx}/profile">修改基本信息</a></td>
+						<td><a style="cursor:pointer;"   class="button border-blue button-little" id="${ctx}/account/updatePersonInfoForm" onclick="show(this.id);">修改基本信息</a></td>
 					</tr>
 				</table>
             </div>

@@ -4,9 +4,6 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-
-<!DOCTYPE html>
-<html lang="zh-cn">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +50,27 @@
     	 function(data) {
         $("#show").html(data);
      })
-    }
+    };
+    function submitFrom(url,formId){
+    	
+    	$('#'+formId).find('input[data-validate],textarea[data-validate],select[data-validate]').trigger("blur");
+    	var numError = $('#'+formId).find('.check-error').length;
+		if(numError){
+			$('#'+formId).find('.check-error').first().find('input[data-validate],textarea[data-validate],select[data-validate]').first().focus().select();
+			return false;
+		}
+		
+    	$.ajax({		cache: true,
+    					type: "POST",
+    					url:url,
+    					data:$('#'+formId).serialize(),
+    					async: false,    				    
+    				    success: function(data) {
+    				    	$("#show").html(data);
+    				    }
+    				});
+
+    };
     </script> 
     <link type="image/x-icon" href="${ctx}/static//favicon.ico" rel="shortcut icon" />
     <link href="${ctx}/static/favicon.ico" rel="bookmark icon" />
@@ -73,8 +90,8 @@
                 <a class="button button-little bg-yellow" href="${ctx}/logout">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
-                <li ><a style="cursor:pointer;"  id="${ctx}/profile/personInfo" class="icon-home"> 首页</a>
-                    <ul><li ><a style="cursor:pointer;" id="${ctx}/profile/personInfo">个人信息</a></li></ul>
+                <li ><a style="cursor:pointer;"  id="${ctx}/account/personInfo" class="icon-home"> 首页</a>
+                    <ul><li ><a style="cursor:pointer;" id="${ctx}/account/personInfo">个人信息</a></li></ul>
                 </li>
                 
                 <li ><a id=""  class="icon-file-text"> 系统</a>
