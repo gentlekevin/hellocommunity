@@ -45,11 +45,17 @@ public Map UpdateProfile(@RequestParam(value="json") String json){
 	user.setName(mapfromjson.get("name"));
 	user.setSex(mapfromjson.get("sex"));
 	user.setAddress(mapfromjson.get("address"));
-	long communityId = Long.parseLong(mapfromjson.get("communityId"));
-	if(user.getCommunity().getId()!=communityId){
-		
-		user.setCommunity(communityService.findById(communityId));	
-	}	
+	String s = mapfromjson.get("communityId");
+	long communityId = Long.parseLong(s);
+	if(user.getCommunity()!=null){
+		if(user.getCommunity().getId()!=communityId){
+			
+			user.setCommunity(communityService.findById(communityId));	
+		}
+	}else{
+		user.setCommunity(communityService.findById(communityId));
+	}
+	
 	user=accountService.updateRestUser(user);
 	  Map map = new HashMap();
 	    map.put("result", "0");
