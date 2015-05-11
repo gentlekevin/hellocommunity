@@ -63,6 +63,18 @@ public class AccountService {
 
 		userDao.save(user);
 	}
+	
+	public String addUser(User user) {
+		
+		if(userDao.findByLoginName(user.getLoginName())!=null){
+			return "账号已经占用"; 
+		}
+		entryptPassword(user);
+		user.setRegisterDate(clock.getCurrentDate());
+
+		userDao.save(user);
+		return ""; 
+	}
     
 	public User registerRestUser(User user) {
 	

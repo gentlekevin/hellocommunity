@@ -103,9 +103,9 @@
 					<li><a href="#">物业报修管理</a></li>
 					</ul>
                 </li>
-				    <li><a style="cursor:pointer;" id="${ctx}/webuser/sysadmin" class="icon-user">用户</a>
+				    <li><a style="cursor:pointer;" id="${ctx}/webuser/list/commonAdminList" class="icon-user">用户</a>
 					<ul>
-					<li><a style="cursor:pointer;" id="${ctx}/webuser/sysadmin">系统管理员管理</a></li>
+					<li><a style="cursor:pointer;" id="${ctx}/webuser/list/commonAdminList">系统管理员管理</a></li>
 					<li><a style="cursor:pointer;" id="${ctx}/webuser/propertyadmin">物业管理员管理</a></li>
 					<li><a style="cursor:pointer;" id="${ctx}/appuser/user">APP用户管理</a></li>
 					

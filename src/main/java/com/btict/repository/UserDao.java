@@ -1,12 +1,14 @@
 
 package com.btict.repository;
 
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.btict.entity.User;
 
-public interface UserDao extends PagingAndSortingRepository<User, Long> {
+
+public interface UserDao extends PagingAndSortingRepository<User, Long>,JpaSpecificationExecutor<User> {
 	
 	User findByLoginName(String loginName);
 	
