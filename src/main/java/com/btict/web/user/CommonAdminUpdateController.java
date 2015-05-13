@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.btict.entity.Property;
 import com.btict.entity.User;
+import com.btict.service.PropertyService;
 import com.btict.service.UserService;
 import com.btict.service.account.AccountService;
 import com.btict.service.account.ShiroDbRealm.ShiroUser;
@@ -25,32 +27,23 @@ import com.btict.service.account.ShiroDbRealm.ShiroUser;
 
 
 @Controller
-@RequestMapping(value = "/webuser/operation")
-public class WebUserOperationController {
+@RequestMapping(value = "/admin")
+public class CommonAdminUpdateController {
 	
 	@Autowired
 	private AccountService accountService;
-
-	@RequestMapping(value="/add", method ={RequestMethod.GET,RequestMethod.POST})
-	public String add(@ModelAttribute("user") User user,Model model) {
-		
-		
-		String msg = accountService.addUser(user);
-		if(msg!=""){
-			model.addAttribute("msg", msg);
-			return "user/addAdminForm";	
-		}		
-		return "redirect:/webuser/list/commonAdminList";
-	}
+	@Autowired
+	private PropertyService propertyService;
 	
 	
-	@RequestMapping(value="/updateAdmin",method ={RequestMethod.GET,RequestMethod.POST} )
-	public String personInfo(@ModelAttribute("user") User user,Model model){
+	@RequestMapping(value="/operation/updateCommonAdmin",method ={RequestMethod.GET,RequestMethod.POST} )
+	public String updateAdmin(@ModelAttribute("user") User user,Model model){
 		accountService.updateUser(user);
 		
-		return "redirect:/webuser/list/commonAdminList";
+		return "redirect:/admin/list/commonAdminList";
 		
 	}
+	
 	
 	
 	/**
@@ -74,17 +67,6 @@ public class WebUserOperationController {
 
 	
 	
-	/**
-	 * Ajax请求校验loginName是否唯一。
-	 */
-	@RequestMapping(value = "checkLoginName")
-	@ResponseBody
-	public String checkLoginName(@RequestParam("loginName") String loginName) {
-		if (accountService.findUserByLoginName(loginName) == null) {
-			return "true";
-		} else {
-			return "false";
-		}
-	}
+
 	
 }

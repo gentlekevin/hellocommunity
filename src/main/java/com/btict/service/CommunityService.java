@@ -1,9 +1,12 @@
 package com.btict.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.btict.entity.Community;
 import com.btict.repository.CommunityDAO;
 
@@ -14,7 +17,7 @@ public class CommunityService {
 
   public CommunityDAO communityDAO;
 	
-  public Community findByCityId(long cityId){
+  public List<Community> findByCityId(long cityId){
 	  return communityDAO.findByCityId(cityId);
   }
   

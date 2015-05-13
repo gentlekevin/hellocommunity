@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     <script src="${ctx}/static/js/jquery.js"></script>
     <script src="${ctx}/static/js/pintuer.js"></script>
     <script src="${ctx}/static/js/respond.js"></script>
-    <script src="${ctx}/static/js/admin.js"></script>
+   
     <script type="text/javascript" >
     $(document).ready(function(){
     	  
@@ -23,7 +23,8 @@
     	$("li").children("a").attr("onclick","test(this);");
     	$("li").first().addClass("active");
     	$("li").first().children().find("li").first().addClass("active");
-    	show($("li").children("a").attr("id")); 
+    	show($("li").children("a").attr("id"));
+    	
     	
     });
     
@@ -33,7 +34,8 @@
     		$(o).parent().siblings().removeClass("active");
     		$(o).parent().addClass("active");
     		$(o).parent().children().find("li").first().addClass("active");
-    		show($(o).attr("id")); 
+    		//show($(o).attr("id")); 
+    		show($(o).parent().children().find("a").first().attr("id")); 
     		
     	}else{
     		$(o).parent().siblings().removeClass("active");
@@ -44,12 +46,17 @@
     };
     function show(url)
     {
-     
-     $.post(   		 
-    		 url,    		 
-    	 function(data) {
+    	$("#show").html("");
+     $.ajax({   		 
+    		 url:url,
+    		  type:'post',
+    		  error:function(){     
+    		       alert('error');     
+    		    },
+    		 success: function(data) {
         $("#show").html(data);
-     })
+     }
+      });
     };
     function submitFrom(url,formId){
     	
@@ -72,7 +79,7 @@
 
     };
     </script> 
-    <link type="image/x-icon" href="${ctx}/static//favicon.ico" rel="shortcut icon" />
+    <link type="image/x-icon" href="${ctx}/static/favicon.ico" rel="shortcut icon" />
     <link href="${ctx}/static/favicon.ico" rel="bookmark icon" />
 </head>
 
@@ -103,11 +110,15 @@
 					<li><a href="#">物业报修管理</a></li>
 					</ul>
                 </li>
-				    <li><a style="cursor:pointer;" id="${ctx}/webuser/list/commonAdminList" class="icon-user">用户</a>
+				    <li><a style="cursor:pointer;"  class="icon-user">用户</a>
 					<ul>
-					<li><a style="cursor:pointer;" id="${ctx}/webuser/list/commonAdminList">系统管理员管理</a></li>
-					<li><a style="cursor:pointer;" id="${ctx}/webuser/propertyadmin">物业管理员管理</a></li>
-					<li><a style="cursor:pointer;" id="${ctx}/appuser/user">APP用户管理</a></li>
+					<shiro:hasRole name="admin">
+                    <li><a style="cursor:pointer;" id="${ctx}/admin/list/commonAdminList">系统管理员管理</a></li>
+                    </shiro:hasRole>
+					<shiro:hasRole name="commonAdmin">
+					<li><a style="cursor:pointer;" id="${ctx}/commonAdmin/list/propertyAdminList">物业管理员管理</a></li>
+					 </shiro:hasRole>
+					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/appUserList">APP用户管理</a></li>
 					
 					</ul>
 								
@@ -129,7 +140,6 @@
 <div id="show" class="admin">
 	
 </div>
-
 
 </body>
 </html>

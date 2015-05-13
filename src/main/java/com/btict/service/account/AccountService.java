@@ -79,7 +79,7 @@ public class AccountService {
 	public User registerRestUser(User user) {
 	
 		entryptRestPassword(user);
-		user.setRoles("commonuser");
+		user.setRoles("appUser");
 		user.setRegisterDate(clock.getCurrentDate());
 
 		return userDao.save(user);

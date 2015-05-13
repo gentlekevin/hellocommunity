@@ -14,16 +14,35 @@
 <div class="alert alert-yellow"><span class="close"></span><strong>注意：</strong>${msg}</div>
 
 	</c:if>
-
-
-	<form  id="updatePersonInfo"   class="form-x" >
+	<form  id="updatePropertyAdmin"  method="post" class="form-x" >
 				
                 <input type="hidden" name="id" value="${user.id}"/>
+                <div class="form-group">
+                    <div class="label"><label for="title">物业名称：</label></div>
+                   
+                    <div class="field">
+                    <select  class="select"  name="proId"   data-validate="required:请填写。" >
+                    	<option value=""   >请选择物业</option>
+                    	<c:forEach items="${properties}" var="pro">
+                    	<option value="${pro.id}"  <c:if test="${user.property.id==pro.id}">selected="selected"  </c:if>
+                    	>${pro.name}</option>
+                    	</c:forEach>
+                    	</select>
+                    	
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <div class="label"><label for="title">登录账号：</label></div>
+                    <div class="field">
+                    	<input type="text" class="input" id="loginName" name="loginName" value="${user.loginName}" 
+                    	size="30" readonly="readonly" />
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="label"><label for="title">姓名：</label></div>
                     <div class="field">
                     	<input type="text" class="input" id="name" name="name" value="${user.name}" 
-                    	size="30" placeholder="输入姓名" data-validate="required:请填写。" />
+                    	size="30" placeholder="输入姓名"  />
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,14 +70,13 @@
                     <div class="field">
                     	<input type="text"  class="input" id="phone" name="phone" value="${user.phone }" 
                     	size="30" placeholder="输入手机号"  
-                    	data-validate="required:请输入手机号,mobile:请输入正确的手机号" />
+                    	data-validate="mobile:请输入正确的手机号" />
                     </div>
                 </div>
                
                 <div class="form-button">
-                <button class="button bg-main"  id="${ctx}/account/updatePersonInfo"
-                 onclick="submitFrom(this.id,'updatePersonInfo')">提交</button>
-                 <button class="button bg-main"  onclick="show('${ctx}/account/personInfo')">返回</button>
+                <button class="button bg-main"  id="${ctx}/webuser/operation/updatePropertyAdmin" onclick="submitFrom(this.id,'updatePropertyAdmin')">提交</button>
+                 <button class="button bg-main" id="${ctx}/webuser/list/propertyAdminList" onclick="show(this.id)">返回</button>
                  </div>
                 
             </form>

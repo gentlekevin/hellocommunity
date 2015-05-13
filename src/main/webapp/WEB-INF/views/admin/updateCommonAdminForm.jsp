@@ -29,7 +29,7 @@
                     <div class="label"><label for="title">姓名：</label></div>
                     <div class="field">
                     	<input type="text" class="input" id="name" name="name" value="${user.name}" 
-                    	size="30" placeholder="输入姓名" data-validate="required:请填写。" />
+                    	size="30" placeholder="输入姓名"  />
                     </div>
                 </div>
                 <div class="form-group">

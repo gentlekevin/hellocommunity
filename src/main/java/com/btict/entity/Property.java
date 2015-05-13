@@ -7,26 +7,25 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
- * 社区实体
+ * 物业实体
  * @author yangkaiwen
  *
  */
 @Entity
-@Table(name="t_community")
-public class Community extends IdEntity {
+@Table(name="t_property")
+public class Property extends IdEntity {
 
 	
 	private String name;
     private String address;
     private String contacts;
     private String phone;
-        private City city;
-        private Property property;
+    private City city;
     
-    public Community() {
+    public Property() {
 	}
 
-	public Community(Long id) {
+	public Property(Long id) {
 		this.id = id;
 	}
 
@@ -83,19 +82,6 @@ public class Community extends IdEntity {
 		this.city = city;
 	}
 	
-	
-	
-	
-	@ManyToOne
-	@JoinColumn(name = "property_id")
-	public Property getProperty() {
-		return property;
-	}
-
-	public void setProperty(Property property) {
-		this.property = property;
-	}
-
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

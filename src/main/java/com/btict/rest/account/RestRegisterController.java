@@ -37,7 +37,7 @@ public class RestRegisterController {
        	Map  map = new HashMap();
 		user =  accountService.registerRestUser(user);
 		if(user ==null)
-		throw new RestException(HttpStatus.FORBIDDEN, RestException.errorResult("注册失败，请重注册！"));
+		throw new RestException(HttpStatus.OK, RestException.errorResult("注册失败，请重注册！"));
 		else {
 			
 			map.put("result", "0");

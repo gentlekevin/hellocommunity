@@ -4,7 +4,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 
-<html lang="zh-cn">
+<html>
 <body>
 	<div class="line-big">
     	<div class="xm3">

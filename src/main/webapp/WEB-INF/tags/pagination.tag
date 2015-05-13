@@ -17,8 +17,8 @@ request.setAttribute("end", end);
 <div class="pagination">
 	<ul>
 		 <% if (page.hasPreviousPage()){%>
-               	<li><a id=${ctx}${thisPagePath}?page=1&sortType=${sortType}&${searchParams} onclick="show(this.id);">&lt;&lt;</a></li>
-                <li><a id=${ctx}${thisPagePath}?page=${current-1}&sortType=${sortType}&${searchParams} onclick="show(this.id);">&lt;</a></li>
+               	<li><a style="cursor:pointer;" id=${ctx}${thisPagePath}?page=1&sortType=${sortType}&${searchParams} onclick="show(this.id);">&lt;&lt;</a></li>
+                <li><a style="cursor:pointer;" id=${ctx}${thisPagePath}?page=${current-1}&sortType=${sortType}&${searchParams} onclick="show(this.id);">&lt;</a></li>
          <%}else{%>
                 <li class="disabled"><a href="#">&lt;&lt;</a></li>
                 <li class="disabled"><a href="#">&lt;</a></li>
@@ -27,17 +27,17 @@ request.setAttribute("end", end);
 		<c:forEach var="i" begin="${begin}" end="${end}">
             <c:choose>
                 <c:when test="${i == current}">
-                    <li class="active"><a id=${ctx}${thisPagePath}?page=${i}&sortType=${sortType}&${searchParams} onclick="show(this.id);">${i}</a></li>
+                    <li class="active"><a style="cursor:pointer;" id=${ctx}${thisPagePath}?page=${i}&sortType=${sortType}&${searchParams} onclick="show(this.id);">${i}</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a id=${ctx}${thisPagePath}?page=${i}&sortType=${sortType}&${searchParams} onclick="show(this.id);">${i}</a></li>
+                    <li><a style="cursor:pointer;" id=${ctx}${thisPagePath}?page=${i}&sortType=${sortType}&${searchParams} onclick="show(this.id);">${i}</a></li>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
 	  
 	  	 <% if (page.hasNextPage()){%>
-               	<li><a id=${ctx}${thisPagePath}?page=${current+1}&sortType=${sortType}&${searchParams} onclick="show(this.id);">&gt;</a></li>
-                <li><a id=${ctx}${thisPagePath}?page=${page.totalPages}&sortType=${sortType}&${searchParams} onclick="show(this.id);">&gt;&gt;</a></li>
+               	<li><a style="cursor:pointer;" id=${ctx}${thisPagePath}?page=${current+1}&sortType=${sortType}&${searchParams} onclick="show(this.id);">&gt;</a></li>
+                <li><a style="cursor:pointer;" id=${ctx}${thisPagePath}?page=${page.totalPages}&sortType=${sortType}&${searchParams} onclick="show(this.id);">&gt;&gt;</a></li>
          <%}else{%>
                 <li class="disabled"><a href="#">&gt;</a></li>
                 <li class="disabled"><a href="#">&gt;&gt;</a></li>

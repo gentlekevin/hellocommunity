@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.btict.entity.Property;
 import com.btict.entity.User;
+import com.btict.service.PropertyService;
+import com.btict.service.UserService;
 import com.btict.service.account.AccountService;
 import com.btict.service.account.ShiroDbRealm.ShiroUser;
 
@@ -24,27 +27,28 @@ import com.btict.service.account.ShiroDbRealm.ShiroUser;
 
 
 @Controller
-@RequestMapping(value = "/webuser/page")
-public class WebUserPageController {
+@RequestMapping(value = "/commonAdmin")
+public class PropertyAdminUpdateController {
 	
 	@Autowired
 	private AccountService accountService;
-
-	@RequestMapping(value="/addCommonAdmin", method ={RequestMethod.GET,RequestMethod.POST})
-	public String add(Model model) {
-		
-	model.addAttribute("roles", "commonAdmin");
-		
-		return "user/addAdminForm";
-	}
-		
-	@RequestMapping(value="/updateCommonAdmin",method ={RequestMethod.GET,RequestMethod.POST} )
-	public String personInfo(Long id,Model model){
+	@Autowired
+	private PropertyService propertyService;
 	
-		model.addAttribute("user", accountService.getUser(id));
-		return "user/updateAdminForm";
+	
+
+	
+	@RequestMapping(value="/operation/updatePropertyAdmin",method ={RequestMethod.GET,RequestMethod.POST} )
+	public String updatePropertyAdmin(@ModelAttribute("user") User user ,Long proId,Model model){
+		
+		Property property  = propertyService.findPropertyId(proId);
+		user.setProperty(property);
+		accountService.updateUser(user);
+		
+		return "redirect:/commonAdmin/list/propertyAdminList";
 		
 	}
+	
 	
 	
 	/**
@@ -68,17 +72,6 @@ public class WebUserPageController {
 
 	
 	
-	/**
-	 * Ajax请求校验loginName是否唯一。
-	 */
-	@RequestMapping(value = "checkLoginName")
-	@ResponseBody
-	public String checkLoginName(@RequestParam("loginName") String loginName) {
-		if (accountService.findUserByLoginName(loginName) == null) {
-			return "true";
-		} else {
-			return "false";
-		}
-	}
+
 	
 }

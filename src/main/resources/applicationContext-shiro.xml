@@ -27,11 +27,12 @@
 				/login = authc
 				/logout = logout
 				/static/** = anon
-				/api/** = anon
 				/rest/** = anon
 				/upload/** = anon
 				/register/** = anon
 				/admin/** = roles[admin]
+				/commonAdmin/** = roles[commonAdmin]
+				/propertyAdmin/** = roles[propertyAdmin]
 				/** = user
 			</value>
 		</property>

@@ -30,6 +30,7 @@ public class User extends IdEntity {
 	private String headerImgUrl;
 	private Date registerDate;
     private Community community;
+    private Property property;
 	public User() {
 	}
 
@@ -168,6 +169,15 @@ public class User extends IdEntity {
 
 	public void setCommunity(Community community) {
 		this.community = community;
+	}
+	@ManyToOne
+	@JoinColumn(name = "property_id")
+	public Property getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
 	}
 	
 	

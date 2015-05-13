@@ -32,12 +32,14 @@ public class RestCommunityController {
 			Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
 			
 			Long cityId = Long.parseLong(mapfromjson.get("cityId"));
-	       Community community  = cityService.findByCityId(cityId);
+	      List<Community> communitys  = cityService.findByCityId(cityId);
 		Map map = new HashMap();
 		map.put("result", "0");
 		List<RestCommunity> list = new ArrayList<RestCommunity>();
+		for(Community community:communitys){
 		list.add(new RestCommunity(String.valueOf(community.getId()), community.getName()));
 		map.put("data",list);
+				}
 		return map;
 	}
 	

@@ -23,6 +23,7 @@ import com.btict.entity.User;
 import com.btict.rest.RestException;
 import com.btict.rest.StringToMapUtil;
 import com.btict.service.CommunityService;
+import com.btict.service.PropertyService;
 import com.btict.service.account.AccountService;
 import com.btict.util.DateUtil;
 
@@ -35,6 +36,7 @@ public class RestProfileController {
 private AccountService accountService;
 @Autowired
 private CommunityService communityService;
+
 @ResponseBody
 @RequestMapping(value="/update",method ={RequestMethod.POST,RequestMethod.GET},produces = MediaTypes.JSON_UTF_8)
 public Map UpdateProfile(@RequestParam(value="json") String json){
@@ -46,15 +48,14 @@ public Map UpdateProfile(@RequestParam(value="json") String json){
 	user.setSex(mapfromjson.get("sex"));
 	user.setAddress(mapfromjson.get("address"));
 	String s = mapfromjson.get("communityId");
-	long communityId = Long.parseLong(s);
-	if(user.getCommunity()!=null){
-		if(user.getCommunity().getId()!=communityId){
-			
-			user.setCommunity(communityService.findById(communityId));	
-		}
-	}else{
-		user.setCommunity(communityService.findById(communityId));
+	if("".equals(s)&&s!=null){
+		long communityId = Long.parseLong(s);
+		 Community community =communityService.findById(communityId);
+		user.setCommunity(community);
+		user.setProperty(community.getProperty());
 	}
+	
+		
 	
 	user=accountService.updateRestUser(user);
 	  Map map = new HashMap();

@@ -22,6 +22,18 @@
 				
                 <input type="hidden" name="id" value="${user.id}"/>
                 <input type="hidden" name="roles" value="${roles}"/>
+                 <div class="form-group">
+                    <div class="label"><label for="title">物业名称：</label></div>
+                    <div class="field">
+                    <select  class="select"  name="proId"   data-validate="required:请填写。" >
+                    	<option value="" selected>请选择物业</option>
+                    	<c:forEach items="${properties}" var="property">
+                    	<option value="${property.id}" >${property.name}</option>
+                    	</c:forEach>
+                    	</select>
+                    	
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="label"><label for="title">登录账号：</label></div>
                     <div class="field">
@@ -42,8 +54,8 @@
                 </div>
                
                 <div class="form-button">
-                <button class="button bg-main"  id="${ctx}/webuser/operation/add" onclick="submitFrom(this.id,'addAdminForm')">提交</button>
-                <button class="button bg-main" id="${ctx}/webuser/list/commonAdminList" onclick="show(this.id)">返回</button>
+                <button class="button bg-main"  id="${ctx}/commonAdmin/operation/addPropertyAdmin" onclick="submitFrom(this.id,'addAdminForm')">提交</button>
+                <button class="button bg-main" id="${ctx}/commonAdmin/list/propertyAdminList" onclick="show(this.id)">返回</button>
                 
                 </div>
                 
