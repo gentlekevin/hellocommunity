@@ -1,9 +1,6 @@
 
 package com.btict.web.user;
 
-
-
-
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,14 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.btict.entity.Property;
 import com.btict.entity.User;
 import com.btict.service.PropertyService;
-import com.btict.service.UserService;
 import com.btict.service.account.AccountService;
 import com.btict.service.account.ShiroDbRealm.ShiroUser;
 

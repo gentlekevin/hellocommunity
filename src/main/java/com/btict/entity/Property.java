@@ -1,11 +1,15 @@
 package com.btict.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * 物业实体
  * @author yangkaiwen
@@ -20,6 +24,7 @@ public class Property extends IdEntity {
     private String address;
     private String contacts;
     private String phone;
+	private Date addDate;
     private City city;
     
     public Property() {
@@ -82,6 +87,16 @@ public class Property extends IdEntity {
 		this.city = city;
 	}
 	
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	public Date getAddDate() {
+		return addDate;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

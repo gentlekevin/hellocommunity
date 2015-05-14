@@ -22,6 +22,10 @@ public class CityService {
   
   
  }
+  public City findCityById(long id){
+	  return cityDAO.findOne(id);
+  }
+  
 
 public CityDAO getCityDAO() {
 	return cityDAO;

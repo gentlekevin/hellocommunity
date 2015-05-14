@@ -17,14 +17,19 @@ function updateAdmin(o){
   show(o.id+"?id="+firstTd);
 };
 function deleteSeletedRecord(url){
-	if(confirm('确认删除?'))
-	{
+	
 		var userIds=""; 
 		$(":checkbox").each(function(i) {
 		  if (this.checked == true) { 
 			  userIds =userIds+ $(this).val()+","; 
 	      }
 		  })
+		  if(userIds==""){
+			  alert("请选中要删除的记录！");
+			  return false;
+		  }
+		if(confirm('确认删除?'))
+		{
 	  	show(url+"?userIds="+userIds);  
 	       };
 	        return false;

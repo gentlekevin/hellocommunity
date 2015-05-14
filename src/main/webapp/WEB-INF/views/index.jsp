@@ -101,13 +101,14 @@
                     <ul><li ><a style="cursor:pointer;" id="${ctx}/account/personInfo">个人信息</a></li></ul>
                 </li>
                 
-                <li ><a id=""  class="icon-file-text"> 系统</a>
+                <li ><a style="cursor:pointer;"   class="icon-file-text"> 系统</a>
 					<ul>
-					<li ><a href="#">物业管理</a></li>
-					<li><a href="#">社区管理</a></li>
-					<li><a href="#">社区信息管理</a></li>
+					<li ><a style="cursor:pointer;" id="${ctx}/commonAdmin/list/propertyList">物业管理</a></li>
+					<li><a style="cursor:pointer;" id="${ctx}/commonAdmin/list/communityList">社区管理</a></li>
+					<li><a href="#">社区资讯管理</a></li>
+					<li><a href="#">社区活动管理</a></li>
 					<li><a href="#">物业报修管理</a></li>
-					<li><a href="#">物业报修管理</a></li>
+					<li><a href="#">物业投诉管理</a></li>
 					</ul>
                 </li>
 				    <li><a style="cursor:pointer;"  class="icon-user">用户</a>
