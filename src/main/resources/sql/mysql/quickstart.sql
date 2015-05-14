@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql
-Source Server Version : 50027
+Source Server         : hello
+Source Server Version : 50610
 Source Host           : localhost:3306
 Source Database       : quickstart
 
 Target Server Type    : MYSQL
-Target Server Version : 50027
+Target Server Version : 50610
 File Encoding         : 65001
 
-Date: 2015-05-13 22:20:35
+Date: 2015-05-14 15:51:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,9 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_city`;
 CREATE TABLE `t_city` (
-  `id` bigint(20) NOT NULL default '0',
-  `name` varchar(50) default NULL,
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -37,54 +37,54 @@ INSERT INTO `t_city` VALUES ('3', '大连');
 -- ----------------------------
 DROP TABLE IF EXISTS `t_community`;
 CREATE TABLE `t_community` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(50) default NULL,
-  `address` varchar(255) default NULL,
-  `contacts` varchar(255) default NULL,
-  `phone` varchar(11) default NULL,
-  `city_id` bigint(20) default NULL,
-  `property_id` bigint(20) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `contacts` varchar(255) DEFAULT NULL,
+  `phone` varchar(11) DEFAULT NULL,
+  `city_id` bigint(20) DEFAULT NULL,
+  `property_id` bigint(20) DEFAULT NULL,
+  `add_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_community
 -- ----------------------------
-INSERT INTO `t_community` VALUES ('1', '社区1', null, null, null, null, '1');
-INSERT INTO `t_community` VALUES ('2', '社区2', null, null, null, null, '1');
-INSERT INTO `t_community` VALUES ('3', '社区3', null, null, null, null, '2');
+INSERT INTO `t_community` VALUES ('5', 'test4', 'test4', 'test4', 'test4', null, '2', '2015-05-14 15:17:42');
 
 -- ----------------------------
 -- Table structure for `t_property`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_property`;
 CREATE TABLE `t_property` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(64) default NULL,
-  `address` varchar(64) default NULL,
-  `contacts` varchar(32) default NULL,
-  `phone` varchar(11) default NULL,
-  `city_id` bigint(20) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  `address` varchar(64) DEFAULT NULL,
+  `contacts` varchar(32) DEFAULT NULL,
+  `phone` varchar(11) DEFAULT NULL,
+  `city_id` bigint(20) DEFAULT NULL,
+  `add_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_property
 -- ----------------------------
-INSERT INTO `t_property` VALUES ('1', 'test1', null, null, null, null);
-INSERT INTO `t_property` VALUES ('2', 'test2', null, null, null, null);
+INSERT INTO `t_property` VALUES ('1', 'test1', 'test1', 'test1', 'test1', '1', '2015-05-14 15:09:24');
+INSERT INTO `t_property` VALUES ('2', 'test2', 'test2', 'test2', 'test2', '2', '2015-05-14 15:09:43');
 
 -- ----------------------------
 -- Table structure for `t_task`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_task`;
 CREATE TABLE `t_task` (
-  `id` bigint(20) NOT NULL auto_increment,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
-  `description` varchar(255) default NULL,
+  `description` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_task
@@ -101,23 +101,23 @@ INSERT INTO `t_task` VALUES ('6', 'dd', 'dd', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `login_name` varchar(64) default NULL,
-  `name` varchar(64) default NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `login_name` varchar(64) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `salt` varchar(64) default NULL,
-  `roles` varchar(255) default NULL,
-  `register_date` timestamp NULL default '0000-00-00 00:00:00',
-  `sex` char(1) default NULL,
-  `birthday` timestamp NULL default NULL on update CURRENT_TIMESTAMP,
-  `phone` varchar(11) default NULL,
-  `address` varchar(255) default NULL,
-  `header_img_url` varchar(255) default '',
-  `community_id` bigint(20) default NULL,
-  `property_id` bigint(20) default NULL,
-  PRIMARY KEY  (`id`),
+  `salt` varchar(64) DEFAULT NULL,
+  `roles` varchar(255) DEFAULT NULL,
+  `register_date` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `sex` char(1) DEFAULT NULL,
+  `birthday` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `phone` varchar(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `header_img_url` varchar(255) DEFAULT '',
+  `community_id` bigint(20) DEFAULT NULL,
+  `property_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `login_name` (`login_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
@@ -127,3 +127,4 @@ INSERT INTO `t_user` VALUES ('38', 'appTest1', 'appTest1', '8fb2cc470514c8c462ed
 INSERT INTO `t_user` VALUES ('39', '物业admin1', null, '91f3f5043ca93ebf064d2e87514ccabcfc94b937', '04c2fe7f59ef9a6b', 'propertyAdmin', '2015-05-13 19:40:01', null, null, null, null, null, null, '1');
 INSERT INTO `t_user` VALUES ('40', 'padmin1', null, 'f82a637bf7b10098a1e16b4372c1b5507e32ab93', '84468cab9cbf7567', 'commonAdmin,propertyAdmin', '2015-05-13 19:40:45', null, '2015-05-13 21:32:29', null, null, null, null, '1');
 INSERT INTO `t_user` VALUES ('41', 'apptest2', null, 'f82a637bf7b10098a1e16b4372c1b5507e32ab93', '84468cab9cbf7567', 'appUser', '2015-05-13 19:40:45', null, '2015-05-13 19:48:26', null, null, '', '3', '2');
+INSERT INTO `t_user` VALUES ('42', 'eee', null, 'a49387d62fd3c51a0ec882e69e02013635afaf94', 'dd0cfe098c0b688c', 'commonAdmin,propertyAdmin', '2015-05-14 11:00:24', null, null, null, null, null, null, null);
