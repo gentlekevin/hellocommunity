@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50610
 File Encoding         : 65001
 
-Date: 2015-05-14 15:51:38
+Date: 2015-05-16 09:04:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `t_activity`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_activity`;
+CREATE TABLE `t_activity` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `property_id` bigint(20) NOT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `content` varchar(1024) DEFAULT NULL,
+  `pic` varchar(128) DEFAULT NULL,
+  `publish_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_activity
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `t_city`
@@ -54,6 +72,41 @@ CREATE TABLE `t_community` (
 INSERT INTO `t_community` VALUES ('5', 'test4', 'test4', 'test4', 'test4', null, '2', '2015-05-14 15:17:42');
 
 -- ----------------------------
+-- Table structure for `t_community_activity_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_community_activity_info`;
+CREATE TABLE `t_community_activity_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `property_id` bigint(20) NOT NULL,
+  `community_id` bigint(20) NOT NULL,
+  `act_info_id` bigint(20) NOT NULL,
+  `type` varchar(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_community_activity_info
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_information`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_information`;
+CREATE TABLE `t_information` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `property_id` bigint(20) NOT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `content` varchar(1024) DEFAULT NULL,
+  `pic` varchar(128) DEFAULT NULL,
+  `publish_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_information
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `t_property`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_property`;
@@ -66,7 +119,7 @@ CREATE TABLE `t_property` (
   `city_id` bigint(20) DEFAULT NULL,
   `add_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_property

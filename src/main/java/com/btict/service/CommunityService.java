@@ -11,9 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.utils.Clock;
-
 import com.btict.entity.Community;
-import com.btict.entity.Property;
 import com.btict.repository.CommunityDAO;
 
 @Component
