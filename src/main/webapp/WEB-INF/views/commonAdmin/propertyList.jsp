@@ -49,8 +49,8 @@ function deleteSeletedRecord(url){
             <input type="button" class="button button-small border-yellow" onclick="deleteSeletedRecord('${ctx}/commonAdmin/operation/deleteProperties');" value="批量删除" />
        </div>
             <table id="table" class="table table-hover">
-        	<tr><th width="45">选择</th><th width="45">序号</th><th width="120">物业名称</th>
-        	<th width="120">物业地址</th><th width="120">联系人</th><th width="80">联系方式</th>
+        	<tr><th width="45">选择</th><th width="45">序号</th><th width="200">物业名称</th>
+        	<th width="200">物业地址</th><th width="120">联系人</th><th width="80">联系方式</th>
         	<th width="80">所在城市</th>	<th>添加时间</th><th width="100">操作</th></tr>
                <c:forEach items="${properties.content}" var="property" varStatus="xh">
 	    	<tr>

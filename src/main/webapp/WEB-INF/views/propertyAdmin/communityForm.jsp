@@ -14,20 +14,17 @@
 <div class="alert alert-yellow"><span class="close">
 
       </span><strong>注意：</strong>${msg}</div>
-
 	</c:if>
-
-
-	<form  id="communityForm"  method="post" class="form-x" >
-				
-                       <input type="hidden" name="id" value="${community.id}"/> 
+	<form  id="CommunityForm"  method="post" class="form-x" >
+	             <input type="hidden" name="id" value="${community.id}"/> 
+	             ${community.id}
                  <div class="form-group">
                     <div class="label"><label for="title">物业：</label></div>
                     <div class="field">
                     <select  class="select"  name="propertyId" >
                     	<option value="" selected>请选择物业</option>
                     	<c:forEach items="${properties}" var="p">
-                    	<option value="${p.id}" <c:if test="${community.property.id==p.id}">selected="selected"  </c:if> >
+                    	<option value="${p.id}" <c:if test="${community.property.id==p.id}">selected="selected"  </c:if>>
                     	${p.name}</option>
                     	</c:forEach>
                     	</select>

@@ -45,13 +45,13 @@ function deleteSeletedRecord(url){
     	<div class="panel-head"><strong>社区列表</strong></div>
         <div class="padding border-bottom">
             <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
-            <input type="button" class="button button-small border-green" id="${ctx}/propertyAdmin/page/addCommunityForm" onclick="show(this.id);" value="添加物业" />
+            <input type="button" class="button button-small border-green" id="${ctx}/propertyAdmin/page/addCommunityForm" onclick="show(this.id);" value="添加社区" />
             <input type="button" class="button button-small border-yellow" onclick="deleteSeletedRecord('${ctx}/propertyAdmin/operation/deleteCommunities');" value="批量删除" />
        </div>
             <table id="table" class="table table-hover">
-        	<tr><th width="45">选择</th><th width="45">序号</th><th width="120">社区名称</th>
-        	<th width="120">社区地址</th><th width="120">联系人</th><th width="80">联系方式</th>
-        	<th width="80">所在物业</th>	<th>添加时间</th><th width="100">操作</th></tr>
+        	<tr><th width="45">选择</th><th width="45">序号</th><th width="200">社区名称</th>
+        	<th width="120">社区地址</th><th width="120">联系人</th><th width="120">联系方式</th>
+        	<th width="200">所在物业</th>	<th>添加时间</th><th width="100">操作</th></tr>
                <c:forEach items="${communities.content}" var="community" varStatus="xh">
 	    	<tr>
             <td><input type="checkbox" name="id" value="${community.id}" /></td>

@@ -110,8 +110,8 @@
 				
 					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/informationList" >社区资讯管理</a></li>
 					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/activityList" >社区活动管理</a></li>
-					<li><a href="#">物业报修管理</a></li>
-					<li><a href="#">物业投诉管理</a></li>
+					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/repairList">物业报修管理</a></li>
+					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/complaintList">物业投诉管理</a></li>
 					</ul>
                 </li>
 				    <li><a style="cursor:pointer;"  class="icon-user">用户</a>
