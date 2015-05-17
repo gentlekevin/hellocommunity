@@ -8,17 +8,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.btict.entity.City;
 import com.btict.entity.Community;
 import com.btict.entity.Property;
-import com.btict.service.CityService;
 import com.btict.service.CommunityService;
 import com.btict.service.PropertyService;
 
 
 @Controller
-@RequestMapping(value = "/commonAdmin")
+@RequestMapping(value = "/propertyAdmin")
 public class CommunityUpdateController {
 	
 	
@@ -39,7 +36,7 @@ public class CommunityUpdateController {
 		  }	  	
 		  communityService.saveCommunity(community);
 			
-			return "redirect:/commonAdmin/list/communityList";
+			return "redirect:/propertyAdmin/list/communityList";
 		
 	}
 	

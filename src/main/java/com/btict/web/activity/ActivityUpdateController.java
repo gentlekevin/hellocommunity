@@ -1,5 +1,5 @@
 
-package com.btict.web.information;
+package com.btict.web.activity;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,37 +11,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.btict.entity.Community;
 import com.btict.entity.CommunityActivityInfo;
-import com.btict.entity.Information;
+import com.btict.entity.Activity;
 import com.btict.service.CommunityActivityInfoService;
 import com.btict.service.CommunityService;
-import com.btict.service.InformationService;
+import com.btict.service.ActivityService;
 import com.btict.service.PropertyService;
 
 
 @Controller
 @RequestMapping(value = "/propertyAdmin")
-public class InformationUpdateController {
+public class ActivityUpdateController {
 	
 	
 	@Autowired
 	private PropertyService propertyService;
 	@Autowired
-	private InformationService informationService;
+	private ActivityService activityService;
 	@Autowired
 	private CommunityService communityService;
 	@Autowired
 	private CommunityActivityInfoService communityActivityInfoService;
 
 	
-	@RequestMapping(value="/operation/updateInformation",method ={RequestMethod.GET,RequestMethod.POST} )
-	public String updateInformation(@ModelAttribute("information") Information information ,String communityId,
+	@RequestMapping(value="/operation/updateActivity",method ={RequestMethod.GET,RequestMethod.POST} )
+	public String updateActivity(@ModelAttribute("activity") Activity activity ,String communityId,
 			String oldCommunityIds, Model model){
 		
-		informationService.saveInformation(information);
+		activityService.saveActivity(activity);
 		
+		System.out.println("oldCommunityIds"+oldCommunityIds);
+		
+		System.out.println("communityId"+communityId);
 		if(!oldCommunityIds.equals(communityId)&&oldCommunityIds!=null&&oldCommunityIds!=""){//对社区进行了修改
 			
-				communityActivityInfoService.deleteByInformtionId(information.getId());
+				communityActivityInfoService.deleteByActivityId(activity.getId());
 			}
 		if(communityId!=null){
 			String [] communityIds = communityId.split(",");
@@ -52,8 +55,8 @@ public class InformationUpdateController {
 		    	community = communityService.findById(Long.parseLong(id));
 		    	activeInfo.setCommunity(community);
 		    	activeInfo.setProperty(community.getProperty());
-		    	activeInfo.setInformation(information);
-		    	activeInfo.setType("0");//0:information,1:activity
+		    	activeInfo.setActivity(activity);
+		    	activeInfo.setType("1");//0:information,1:activity
 		    	communityActivityInfoService.saveCommunityActivityInfo(activeInfo);
 		    }
 		}
@@ -62,7 +65,7 @@ public class InformationUpdateController {
 		
 		
 		
-		return "redirect:/propertyAdmin/list/informationList";
+		return "redirect:/propertyAdmin/list/activityList";
 		
 	}
 	
@@ -75,7 +78,7 @@ public class InformationUpdateController {
 	@ModelAttribute
 	public void getProperty(@RequestParam(value = "id", defaultValue = "-1") Long id, Model model) {
 		if (id != -1) {
-			model.addAttribute("information", informationService.findInformationById(id));
+			model.addAttribute("activity", activityService.findActivityById(id));
 		}
 	}
 

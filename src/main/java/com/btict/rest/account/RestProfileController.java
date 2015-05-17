@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springside.modules.web.MediaTypes;
-
 import com.btict.entity.Community;
 import com.btict.entity.User;
 import com.btict.rest.RestException;
 import com.btict.rest.StringToMapUtil;
 import com.btict.service.CommunityService;
-import com.btict.service.PropertyService;
 import com.btict.service.account.AccountService;
 import com.btict.util.DateUtil;
 

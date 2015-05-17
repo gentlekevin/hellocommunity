@@ -43,7 +43,7 @@ public class AccountService {
 	public List<User> getAllUser() {
 		return (List<User>) userDao.findAll();
 	}
-	@Transactional(readOnly = true)
+	
 	public User getUser(Long id) {
 		return userDao.findOne(id);
 	}
@@ -52,8 +52,8 @@ public class AccountService {
 		return userDao.findByLoginName(loginName);
 	}
 	@Transactional(readOnly = true)
-	public User findUserByPhone(String phone){
-		return userDao.findByPhone(phone);
+	public User findUserByPhoneAndRoles(String phone,String role){
+		return userDao.findByPhoneAndRoles(phone,role);
 	}
 	
 	public void registerUser(User user) {
@@ -87,7 +87,7 @@ public class AccountService {
 	
 	@Transactional(readOnly = true)
 	public boolean restUserExist(User user) {
-		User realUser = findUserByPhone(user.getPhone());
+		User realUser = userDao.findByPhoneAndRoles(user.getPhone(),"appUser");
 		if(realUser!=null)return true;
 		else return false;
 		
@@ -102,7 +102,7 @@ public class AccountService {
 	@Transactional(readOnly = true)
 	public User validateRestUser(User user){
 			
-		User realUser = findUserByPhone(user.getPhone());
+		User realUser = findUserByPhoneAndRoles(user.getPhone(),"appUser");
 		if(realUser==null)return null;
 		byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), null, HASH_INTERATIONS);
 		if(Encodes.encodeHex(hashPassword).equals(realUser.getPassword())) return realUser;

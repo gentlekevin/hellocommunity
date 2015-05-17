@@ -75,8 +75,8 @@
                 </div>
                
                 <div class="form-button">
-                <button class="button bg-main"  id="${ctx}/webuser/operation/updatePropertyAdmin" onclick="submitFrom(this.id,'updatePropertyAdmin')">提交</button>
-                 <button class="button bg-main" id="${ctx}/webuser/list/propertyAdminList" onclick="show(this.id)">返回</button>
+                <button class="button bg-main"  id="${ctx}/commonAdmin/operation/updatePropertyAdmin" onclick="submitFrom(this.id,'updatePropertyAdmin')">提交</button>
+                 <button class="button bg-main" id="${ctx}/commonAdmin/list/propertyAdminList" onclick="show(this.id)">返回</button>
                  </div>
                 
             </form>

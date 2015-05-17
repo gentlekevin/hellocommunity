@@ -32,17 +32,17 @@ public class ActivityService {
 	  return activityDAO.findOne(id);
   }
   
-  public void deleteCommunity(long id){
+  public void deleteActivity(long id){
 	   activityDAO.delete(id);
   }
   
-  public Activity saveCommunity(Activity activity){
+  public Activity saveActivity(Activity activity){
 	  activity.setPublishDate(clock.getCurrentDate());
 	  return activityDAO.save(activity);
   }
   
   
-  public Page<Activity> getCommunities( Map<String, Object> searchParams, int pageNumber, int pageSize,
+  public Page<Activity> getActivities( Map<String, Object> searchParams, int pageNumber, int pageSize,
 			String sortType) {
 	
 	    PageRequest pageRequest = SpecificationFindUtil.buildPageRequest(pageNumber, pageSize, sortType);

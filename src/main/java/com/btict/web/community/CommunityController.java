@@ -3,9 +3,7 @@ package com.btict.web.community;
 
 
 import java.util.Map;
-
 import javax.servlet.ServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,20 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.modules.web.Servlets;
-
-import com.btict.entity.City;
 import com.btict.entity.Community;
 import com.btict.entity.Property;
 import com.btict.service.CityService;
 import com.btict.service.CommunityService;
 import com.btict.service.PropertyService;
-import com.btict.service.UserService;
 import com.google.common.collect.Maps;
 
 
 
 @Controller
-@RequestMapping(value = "/commonAdmin")
+@RequestMapping(value = "/propertyAdmin")
 public class CommunityController {
 	private static final String PAGE_SIZE = "10";
 	private static Map<String, String> sortTypes = Maps.newLinkedHashMap();
@@ -59,8 +54,8 @@ public class CommunityController {
 	
 		// 将搜索条件编码成字符串，用于排序，分页的URL
 		model.addAttribute("searchParams", Servlets.encodeParameterStringWithPrefix(searchParams, "search_"));
-        model.addAttribute("thisPagePath","/commonAdmin/list/communityList");
-		return "commonAdmin/communityList";
+        model.addAttribute("thisPagePath","/propertyAdmin/list/communityList");
+		return "propertyAdmin/communityList";
 	}
 	@RequestMapping(value="/page/addCommunityForm", method ={RequestMethod.GET,RequestMethod.POST})
 	public String addCommunityForm(Model model) {
@@ -69,7 +64,7 @@ public class CommunityController {
 		model.addAttribute("formType", "add");
 		model.addAttribute("properties", propertyService.findAllPropertis());
 		
-	return "commonAdmin/communityForm";
+	return "propertyAdmin/communityForm";
 	}
 	
 	
@@ -82,7 +77,7 @@ public class CommunityController {
 		model.addAttribute("formType", "update");
 		model.addAttribute("properties", propertyService.findAllPropertis());
 		
-	return "commonAdmin/communityForm";
+	return "propertyAdmin/communityForm";
 	}
 	@RequestMapping(value="/operation/addCommunity", method ={RequestMethod.GET,RequestMethod.POST})
 	public String addCommunity(Community community,Long propertyId, Model model) {
@@ -96,7 +91,7 @@ public class CommunityController {
 	  }	  	
 	  communityService.saveCommunity(community);
 		
-		return "redirect:/commonAdmin/list/communityList";
+		return "redirect:/propertyAdmin/list/communityList";
 	}
 	
 	@RequestMapping(value="/operation/deleteCommunity",method ={RequestMethod.GET,RequestMethod.POST} )
@@ -104,7 +99,7 @@ public class CommunityController {
 		
 		communityService.deleteCommunity(id);
 	
-		return "redirect:/commonAdmin/list/communityList";
+		return "redirect:/propertyAdmin/list/communityList";
 		
 	}
 	
@@ -115,7 +110,7 @@ public class CommunityController {
 		for(String id:ids){
 			communityService.deleteCommunity(Long.parseLong(id));
 		}
-		return "redirect:/commonAdmin/list/communityList";
+		return "redirect:/propertyAdmin/list/communityList";
 	}
 	
 	

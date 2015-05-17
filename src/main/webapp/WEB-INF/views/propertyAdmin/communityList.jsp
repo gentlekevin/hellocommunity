@@ -45,8 +45,8 @@ function deleteSeletedRecord(url){
     	<div class="panel-head"><strong>社区列表</strong></div>
         <div class="padding border-bottom">
             <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
-            <input type="button" class="button button-small border-green" id="${ctx}/commonAdmin/page/addCommunityForm" onclick="show(this.id);" value="添加物业" />
-            <input type="button" class="button button-small border-yellow" onclick="deleteSeletedRecord('${ctx}/commonAdmin/operation/deleteCommunities');" value="批量删除" />
+            <input type="button" class="button button-small border-green" id="${ctx}/propertyAdmin/page/addCommunityForm" onclick="show(this.id);" value="添加物业" />
+            <input type="button" class="button button-small border-yellow" onclick="deleteSeletedRecord('${ctx}/propertyAdmin/operation/deleteCommunities');" value="批量删除" />
        </div>
             <table id="table" class="table table-hover">
         	<tr><th width="45">选择</th><th width="45">序号</th><th width="120">社区名称</th>
@@ -65,9 +65,9 @@ function deleteSeletedRecord(url){
          
             <td>
            
-            <a class="button border-blue button-little"  style="cursor:pointer;" onclick="show('${ctx}/commonAdmin/page/updateCommunityForm?id=${community.id}');">修改</a>
+            <a class="button border-blue button-little"  style="cursor:pointer;" onclick="show('${ctx}/propertyAdmin/page/updateCommunityForm?id=${community.id}');">修改</a>
              <a class="button border-yellow button-little" style="cursor:pointer;"
-             onclick="{if(confirm('确认删除?')){return show('${ctx}/commonAdmin/operation/deleteCommunity?id=${community.id}');}
+             onclick="{if(confirm('确认删除?')){return show('${ctx}/propertyAdmin/operation/deleteCommunity?id=${community.id}');}
              return false;}">删除</a></td>
             </tr>
              	</c:forEach>

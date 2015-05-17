@@ -103,10 +103,13 @@
                 
                 <li ><a style="cursor:pointer;"   class="icon-file-text"> 系统</a>
 					<ul>
+					<shiro:hasRole name="commonAdmin">
 					<li ><a style="cursor:pointer;" id="${ctx}/commonAdmin/list/propertyList">物业管理</a></li>
-					<li><a style="cursor:pointer;" id="${ctx}/commonAdmin/list/communityList">社区管理</a></li>
-					<li><a href="#">社区资讯管理</a></li>
-					<li><a href="#">社区活动管理</a></li>
+					</shiro:hasRole>
+					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/communityList">社区管理</a></li>
+				
+					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/informationList" >社区资讯管理</a></li>
+					<li><a style="cursor:pointer;" id="${ctx}/propertyAdmin/list/activityList" >社区活动管理</a></li>
 					<li><a href="#">物业报修管理</a></li>
 					<li><a href="#">物业投诉管理</a></li>
 					</ul>

@@ -13,4 +13,6 @@ JpaSpecificationExecutor<Community>{
 	public  List<Community> findByCityId(Long cityId);
 	
 	public  List<Community> findByPropertyId(Long propertyId);
+	
+	
 }

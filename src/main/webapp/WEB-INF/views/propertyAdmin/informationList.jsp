@@ -18,20 +18,20 @@ function updateAdmin(o){
 };
 function deleteSeletedRecord(url){
 	
-		var propertyIds=""; 
+		var informationIds=""; 
 		$(":checkbox").each(function(i) {
 		  if (this.checked == true) { 
-			  propertyIds =propertyIds+ $(this).val()+","; 
+			  informationIds =informationIds+ $(this).val()+","; 
 	      }
 		  })
 		
-		  if(propertyIds==""){
+		  if(informationIds==""){
 			  alert("请选中要删除的记录！");
 			  return false;
 		  }
 		if(confirm('确认删除?'))
 		{
-	  	show(url+"?propertyIds="+propertyIds);  
+	  	show(url+"?informationIds="+informationIds);  
 	       };
 	        return false;
 		};
@@ -42,39 +42,41 @@ function deleteSeletedRecord(url){
 <div class="admin">
 	<form method="post">
     <div class="panel admin-panel">
-    	<div class="panel-head"><strong>物业列表</strong></div>
+    	<div class="panel-head"><strong>社区资讯列表</strong></div>
         <div class="padding border-bottom">
             <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
-            <input type="button" class="button button-small border-green" id="${ctx}/commonAdmin/page/addPropertyForm" onclick="show(this.id);" value="添加物业" />
-            <input type="button" class="button button-small border-yellow" onclick="deleteSeletedRecord('${ctx}/commonAdmin/operation/deleteProperties');" value="批量删除" />
+               
+            <c:if test="${user.property.name!=null}"><!-- 只能物业管理员能进行增加资讯信息 -->
+            <input type="button" class="button button-small border-green" id="${ctx}/propertyAdmin/page/addInformationForm" onclick="show(this.id);" value="添加社区资讯" />
+            </c:if>
+            
+            <input type="button" class="button button-small border-yellow" onclick="deleteSeletedRecord('${ctx}/propertyAdmin/operation/deleteInformations');" value="批量删除" />
        </div>
             <table id="table" class="table table-hover">
-        	<tr><th width="45">选择</th><th width="45">序号</th><th width="120">物业名称</th>
-        	<th width="120">社区名称</th><th width="120">联系人</th><th width="80">联系方式</th>
-        	<th width="80">所在城市</th>	<th>添加时间</th><th width="100">操作</th></tr>
-               <c:forEach items="${properties.content}" var="property" varStatus="xh">
+        	<tr><th width="45">选择</th><th width="45">序号</th><th width="120">资讯标题</th>
+        	<th width="120">资讯内容</th><th width="120">所在物业</th><th width="80">发布时间</th>
+        	<th width="100">操作</th></tr>
+               <c:forEach items="${informations.content}" var="information" varStatus="xh">
 	    	<tr>
-            <td><input type="checkbox" name="id" value="${property.id}" /></td>
+            <td><input type="checkbox" name="id" value="${information.id}" /></td>
             <td>${xh.count}</td>
-            <td>${property.name}</td>
-            <td>${property.address}</td>
-            <td>${property.contacts}</td>
-            <td>${property.phone}</td>
-              <td>${property.city.name}</td>
-            <td>${property.addDate}</td>
-         
-            <td>
-           
-            <a class="button border-blue button-little"  style="cursor:pointer;" onclick="show('${ctx}/commonAdmin/page/updatePropertyForm?id=${property.id}');">修改</a>
+            <td>${information.title}</td>
+            <td>${information.content}</td>            
+            <td>${information.property.name}</td>
+            <td>${information.publishDate}</td>
+             <td>
+           <c:if test="${user.property.name!=null}"><!-- 只能物业管理员能进行增加资讯信息 -->
+            <a class="button border-blue button-little"  style="cursor:pointer;" onclick="show('${ctx}/propertyAdmin/page/updateInformationForm?id=${information.id}');">修改</a>
+            </c:if>
              <a class="button border-yellow button-little" style="cursor:pointer;"
-             onclick="{if(confirm('确认删除?')){return show('${ctx}/commonAdmin/operation/deleteProperty?id=${property.id}');}
+             onclick="{if(confirm('确认删除?')){return show('${ctx}/propertyAdmin/operation/deleteInformation?id=${information.id}');}
              return false;}">删除</a></td>
             </tr>
              	</c:forEach>
                       
         </table>
          <div class="panel-foot text-center">
-        <tags:pagination page="${properties}" paginationSize="5"/>
+        <tags:pagination page="${informations}" paginationSize="5"/>
          
         </div>
     </div>

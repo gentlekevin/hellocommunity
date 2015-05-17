@@ -22,7 +22,7 @@ import com.btict.repository.InformationDAO;
 public class InformationService {
   
 
-  public InformationDAO informationDAO;
+  private InformationDAO informationDAO;
   private Clock clock = Clock.DEFAULT;
   
   public List<Information> findByPropertyId(long propertyId){

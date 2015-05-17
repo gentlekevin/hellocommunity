@@ -18,9 +18,9 @@
 	</c:if>
 
 
-	<form  id="CommunityForm"  method="post" class="form-x" >
+	<form  id="communityForm"  method="post" class="form-x" >
 				
-                     <input type="hidden" name="id" value="${community.id}"/> 
+                       <input type="hidden" name="id" value="${community.id}"/> 
                  <div class="form-group">
                     <div class="label"><label for="title">物业：</label></div>
                     <div class="field">
@@ -31,9 +31,9 @@
                     	${p.name}</option>
                     	</c:forEach>
                     	</select>
-                    	
-                    </div>
-                </div>
+                    </div>	
+                    </div>   
+            
                 <div class="form-group">
                     <div class="label"><label for="title">社区名称：</label></div>
                     <div class="field">
@@ -67,11 +67,11 @@
                 <div class="form-button">
                 <button class="button bg-main"  
                    <c:choose>  
-                   <c:when test="${formType=='add'}">   id="${ctx}/commonAdmin/operation/addCommunity" </c:when> 
-                   <c:otherwise> id="${ctx}/commonAdmin/operation/updateCommunity" </c:otherwise>  
+                   <c:when test="${formType=='add'}">   id="${ctx}/propertyAdmin/operation/addCommunity" </c:when> 
+                   <c:otherwise> id="${ctx}/propertyAdmin/operation/updateCommunity" </c:otherwise>  
                   </c:choose>   
                 onclick="submitFrom(this.id,'CommunityForm')">提交</button>
-                <button class="button bg-main" id="${ctx}/commonAdmin/list/communityList" onclick="show(this.id)">返回</button>
+                <button class="button bg-main" id="${ctx}/propertyAdmin/list/communityList" onclick="show(this.id)">返回</button>
                 
                 </div>
                 

@@ -24,7 +24,9 @@ public class CommunityService {
   public List<Community> findByCityId(long cityId){
 	  return communityDAO.findByCityId(cityId);
   }
-  
+  public List<Community> findByPropertyId(long propertyId){
+	  return communityDAO.findByPropertyId(propertyId);
+  }
   public Community findById(long id){
 	  return communityDAO.findOne(id);
   }
@@ -38,6 +40,7 @@ public class CommunityService {
 	  return communityDAO.save(community);
   }
   
+ 
   
   public Page<Community> getCommunities( Map<String, Object> searchParams, int pageNumber, int pageSize,
 			String sortType) {

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  *
  */
 @Entity
-@Table(name="t_infomation")
+@Table(name="t_information")
 public class Information extends IdEntity {
 
 	
