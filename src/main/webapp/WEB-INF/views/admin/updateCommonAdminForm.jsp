@@ -62,9 +62,9 @@
                 </div>
                
                 <div class="form-button">
-                <button class="button bg-main"  id="${ctx}/webuser/operation/updateAdmin" onclick="submitFrom(this.id,'updateCommonAdmin')">提交</button>
+                <button class="button bg-main"  id="${ctx}/admin/operation/updateCommonAdmin" onclick="submitFrom(this.id,'updateCommonAdmin')">提交</button>
                 
-                  <button class="button bg-main" id="${ctx}/webuser/list/commonAdminList" onclick="show(this.id)">返回</button>
+                  <button class="button bg-main" id="${ctx}/admin/list/commonAdminList" onclick="show(this.id)">返回</button>
                  </div>
                 
             </form>

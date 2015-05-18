@@ -3,7 +3,10 @@ package com.btict.web.community;
 
 
 import java.util.Map;
+
 import javax.servlet.ServletRequest;
+
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.modules.web.Servlets;
+
 import com.btict.entity.Community;
 import com.btict.entity.Property;
+import com.btict.entity.User;
 import com.btict.service.CityService;
 import com.btict.service.CommunityService;
 import com.btict.service.PropertyService;
+import com.btict.service.account.AccountService;
+import com.btict.service.account.ShiroDbRealm.ShiroUser;
 import com.google.common.collect.Maps;
 
 
@@ -36,6 +43,8 @@ public class CommunityController {
 	@Autowired
 	private CommunityService communityService;
 	@Autowired
+	private AccountService accountService;
+	@Autowired
 	private CityService cityService;
 	
 	@RequestMapping(value="/list/communityList",method = {RequestMethod.GET,RequestMethod.POST,})
@@ -44,7 +53,10 @@ public class CommunityController {
 			@RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model,
 			ServletRequest request) {
 		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
-		
+		   User user = accountService.getUser(getCurrentUserId());
+		    if(user.getProperty()!=null){
+		    	searchParams.put("EQ_property.id", String.valueOf(user.getProperty().getId()));
+		    }
 		Page<Community> communities = communityService.getCommunities(searchParams, pageNumber, pageSize, sortType);
 			
 
@@ -80,9 +92,10 @@ public class CommunityController {
 	return "propertyAdmin/communityForm";
 	}
 	@RequestMapping(value="/operation/addCommunity", method ={RequestMethod.GET,RequestMethod.POST})
-	public String addCommunity(Community community,Long propertyId, Model model) {
+	public String addCommunity(Community community,
+			@RequestParam(value = "pId", defaultValue = "-1")Long propertyId, Model model) {
 		
-	  if(propertyId!=0&&propertyId!=null){
+	  if(propertyId!=-1&&propertyId!=null){
 		  Property property = propertyService.findPropertyId(propertyId);
 		  community.setProperty(property);
 			
@@ -113,5 +126,11 @@ public class CommunityController {
 		return "redirect:/propertyAdmin/list/communityList";
 	}
 	
-	
+	/**
+	 * 取出Shiro中的当前用户Id.
+	 */
+	private Long getCurrentUserId() {
+		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		return user.id;
+	}
 }

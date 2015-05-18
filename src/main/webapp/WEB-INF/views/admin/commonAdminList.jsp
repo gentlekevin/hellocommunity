@@ -49,7 +49,7 @@ function deleteSeletedRecord(url){
             <td><input type="checkbox" name="id" value="${user.id}" /></td>
             <td>${xh.count}</td>
             <td>${user.loginName}</td>
-            <td>${user.roles}</td>
+            <td>普通管理员</td>
             <td>${user.name}</td>
             <td>  <c:choose>  
                    <c:when test="${user.sex=='1'}"> 男 </c:when> 

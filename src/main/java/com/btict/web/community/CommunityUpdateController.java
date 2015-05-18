@@ -25,9 +25,10 @@ public class CommunityUpdateController {
 	private CommunityService communityService;
 	
 	@RequestMapping(value="/operation/updateCommunity",method ={RequestMethod.GET,RequestMethod.POST} )
-	public String updatePropertyAdmin(@ModelAttribute("community") Community community ,Long propertyId,Model model){
+	public String updatePropertyAdmin(@ModelAttribute("community") Community community ,
+			@RequestParam(value = "propertyId", defaultValue = "-1")Long propertyId,Model model){
 		
-		if(propertyId!=0&&propertyId!=null){
+		if(propertyId!=-1&&propertyId!=null){
 			  Property property = propertyService.findPropertyId(propertyId);
 			  community.setProperty(property);
 				

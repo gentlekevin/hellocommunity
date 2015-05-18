@@ -51,7 +51,7 @@ function deleteSeletedRecord(url){
             <table id="table" class="table table-hover">
         	<tr><th width="45">选择</th><th width="45">序号</th><th width="200">社区名称</th>
         	<th width="120">社区地址</th><th width="120">联系人</th><th width="120">联系方式</th>
-        	<th width="200">所在物业</th>	<th>添加时间</th><th width="100">操作</th></tr>
+        	<th width="200">所在物业</th>	<th width="120">添加时间</th><th width="100">操作</th></tr>
                <c:forEach items="${communities.content}" var="community" varStatus="xh">
 	    	<tr>
             <td><input type="checkbox" name="id" value="${community.id}" /></td>

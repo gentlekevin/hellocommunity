@@ -16,6 +16,7 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>,JpaSpeci
 	
 	User findByPhoneAndRoles(String phone,String role);
 	
+	User findByIdAndCommunityId(Long id,Long communityId);
 	@Query("from User u where u.id=?1")
 	User findById(long id);
 
