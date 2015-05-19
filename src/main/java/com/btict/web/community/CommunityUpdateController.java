@@ -30,6 +30,7 @@ public class CommunityUpdateController {
 		if(propertyId!=0&&propertyId!=null){
 			  Property property = propertyService.findPropertyId(propertyId);
 			  community.setProperty(property);
+			  community.setCity(property.getCity());
 				
 		  }else{
 			  community.setProperty(null); 

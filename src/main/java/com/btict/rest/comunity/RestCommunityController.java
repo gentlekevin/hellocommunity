@@ -25,7 +25,6 @@ public class RestCommunityController {
 	 @Autowired
     public CommunityService cityService;
 	 
-	 
 	 @RequestMapping( value="/findByCityId", method = {RequestMethod.POST,RequestMethod.GET},
 			 produces = MediaTypes.JSON_UTF_8)
 	public Map findAllCities(@RequestParam(value="json") String json){
@@ -38,8 +37,9 @@ public class RestCommunityController {
 		List<RestCommunity> list = new ArrayList<RestCommunity>();
 		for(Community community:communitys){
 		list.add(new RestCommunity(String.valueOf(community.getId()), community.getName()));
-		map.put("data",list);
+		
 				}
+		map.put("data",list);
 		return map;
 	}
 	
