@@ -2,7 +2,6 @@
 package com.btict.service.account;
 
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.btict.entity.User;
 import com.btict.repository.UserDao;
 import com.btict.service.ServiceException;
@@ -56,6 +54,9 @@ public class AccountService {
 		return userDao.findByPhoneAndRoles(phone,role);
 	}
 	
+	public User findByIdAndCommunityId(Long id,Long CommunityId){
+		return userDao.findByIdAndCommunityId(id, CommunityId);
+	}
 	public void registerUser(User user) {
 		entryptPassword(user);
 		user.setRoles("user");

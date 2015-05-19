@@ -4,7 +4,9 @@ package com.btict.web.information;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.modules.web.Servlets;
+
 import com.btict.entity.Community;
 import com.btict.entity.CommunityActivityInfo;
 import com.btict.entity.Information;
@@ -54,6 +57,10 @@ public class InformationController {
 			ServletRequest request) {
 		Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
 		
+		User user = accountService.getUser(getCurrentUserId());
+	    if(user.getProperty()!=null){
+	    	searchParams.put("EQ_property.id", String.valueOf(user.getProperty().getId()));
+	    }
 		Page<Information> properties = informationService.getInformations(searchParams, pageNumber, pageSize, sortType);
 			
 

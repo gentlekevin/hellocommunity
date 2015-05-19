@@ -30,7 +30,7 @@ $(document).ready(function(){
 	    	<tr>
             <td>${xh.count}</td>
             <td>${user.loginName}</td>
-            <td>${user.roles}</td>
+            <td>App用户</td>
             <td>${user.name}</td>
             <td>  <c:choose>  
                    <c:when test="${user.sex=='1'}"> 男 </c:when> 

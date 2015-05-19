@@ -43,7 +43,7 @@ public class CommonAdminController {
 				@RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model,
 				ServletRequest request) {
 			Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
-			String roles = "commonAdmin";
+			String roles = "commonAdmin,propertyAdmin";
 			Page<User> users = userService.getUsers(roles, searchParams, pageNumber, pageSize, sortType);
 
 			model.addAttribute("users", users);
@@ -102,7 +102,7 @@ public class CommonAdminController {
 	    
 		
 		model.addAttribute("user", accountService.getUser(id));
-		return "admin/updateAdminForm";
+		return "admin/updateCommonAdminForm";
 		
 	}
 	

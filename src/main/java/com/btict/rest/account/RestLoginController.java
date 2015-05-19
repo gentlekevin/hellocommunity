@@ -3,7 +3,6 @@ package com.btict.rest.account;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springside.modules.web.MediaTypes;
-
 import com.btict.entity.User;
 import com.btict.rest.RestException;
 import com.btict.rest.StringToMapUtil;
@@ -49,6 +47,9 @@ public class RestLoginController {
 			if(user.getCommunity()!=null){
 			map.put("communityId", String.valueOf(user.getCommunity().getId()));
 			map.put("communityName", user.getCommunity().getName());
+			}else{
+				map.put("communityId", "");
+				map.put("communityName", "");
 			}
 			return map;
 	  }

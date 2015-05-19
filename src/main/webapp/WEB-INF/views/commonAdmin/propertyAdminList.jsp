@@ -49,14 +49,14 @@ function deleteSeletedRecord(url){
        </div>
             <table id="table" class="table table-hover">
         	<tr><th width="45">选择</th><th width="45">序号</th><th width="120">登录账号</th>
-        	<th width="120">角色</th><th width="120">姓名</th><th width="80">性别</th>
+        	<th width="120">角色</th><th width="120">姓名</th><th width="50">性别</th>
         	<th width="120">手机</th><th width="120">物业单位</th><th width="*">添加时间</th><th width="100">操作</th></tr>
                <c:forEach items="${users.content}" var="user" varStatus="xh">
 	    	<tr>
             <td><input type="checkbox" name="id" value="${user.id}" /></td>
             <td>${xh.count}</td>
             <td>${user.loginName}</td>
-            <td>${user.roles}</td>
+            <td>普通管理员</td>
             <td>${user.name}</td>
             <td>  <c:choose>  
                    <c:when test="${user.sex=='1'}"> 男 </c:when> 
