@@ -3,15 +3,17 @@ package com.btict.functional.rest;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import com.btict.functional.BaseFunctionalTestCase;
 import org.springside.modules.mapper.JsonMapper;
 import org.springside.modules.test.category.Smoke;
+
+import com.btict.functional.BaseFunctionalTestCase;
 
 /**
  * 任务管理的功能测试, 测试页面JavaScript及主要用户故事流程.
@@ -25,7 +27,7 @@ public class AccountRestFT extends BaseFunctionalTestCase {
 	private final RestTemplate restTemplate = new RestTemplate();
 	private final JsonMapper jsonMapper = new JsonMapper();
 
-  
+  /*
 	@Test
 	@Category(Smoke.class)
 	public void UploadHeadImg() {
@@ -42,9 +44,7 @@ public class AccountRestFT extends BaseFunctionalTestCase {
 		System.out.println(string);
 	}
 
-	/**
-	 * 上传头像
-	 */
+
 	
 	@Test
 	@Category(Smoke.class)
@@ -56,14 +56,33 @@ public class AccountRestFT extends BaseFunctionalTestCase {
 	
 		System.out.println(location);
 		Map map = new HashMap<>();
-		map.put("userId", "3");
+		map.put("userId", "41");
 		map.put("name", "2");
 		map.put("sex", "1");
 		map.put("address", "sdsdsdd");
-		map.put("communityId", "3");
+		map.put("communityId", "1");
 		param.add("json", jsonMapper.toJson(map));
 				String string = restTemplate.postForObject(location, param, String.class);
 		System.out.println(string);
 	}
+	*/
+	@Test
+	@Category(Smoke.class)
+	public void addCommunity() {
+		String location = resourceUrl+"/addCommunity";
+		
+	
+		MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+	
+		System.out.println(location);
+		Map map = new HashMap<>();
+		map.put("userId", "41");
+		
+		map.put("communityId", "1");
+		param.add("json", jsonMapper.toJson(map));
+				String string = restTemplate.postForObject(location, param, String.class);
+		System.out.println(string);
+	}
+	
 	
 }

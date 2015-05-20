@@ -27,7 +27,7 @@ public class Complaint extends IdEntity {
 	private Date handleDate;
 	private User user;
     private Date complaintDate;
-    
+    private Community community;
     
     public Complaint() {
 	}
@@ -102,5 +102,17 @@ public class Complaint extends IdEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	@ManyToOne
+	@JoinColumn(name = "community_id")
+	public Community getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Community community) {
+		this.community = community;
+	}
+	
+	
+	
    
 }

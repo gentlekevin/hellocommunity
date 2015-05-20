@@ -49,25 +49,7 @@ public class RestCommunityController {
 		return map;
 	}
 	
-	 @RequestMapping( value="/validateUserInCommunity", method = {RequestMethod.POST,RequestMethod.GET},
-			 produces = MediaTypes.JSON_UTF_8)
-	public Map validateUserInCommunity(@RequestParam(value="json") String json){
-			Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
-			
-			Long userId = Long.parseLong(mapfromjson.get("userId"));
-			Long communityId = Long.parseLong(mapfromjson.get("communityId"));
-			
-			User user = accountService.findByIdAndCommunityId(userId, communityId);
-			Map map = new HashMap();
-			if(user!=null){
-
-				map.put("result", "0");	
-			}else{
-				  throw new RestException(HttpStatus.OK, RestException.errorResult("该用户不在该社区内！"));
-			}
-		    
-		return map;
-	}
+	
 	 
 	 
 	 public class RestCommunity{

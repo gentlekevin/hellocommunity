@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springside.modules.web.MediaTypes;
+
 import com.btict.entity.Community;
 import com.btict.entity.User;
 import com.btict.rest.RestException;
@@ -44,7 +47,7 @@ public Map UpdateProfile(@RequestParam(value="json") String json){
 	user.setSex(mapfromjson.get("sex"));
 	user.setAddress(mapfromjson.get("address"));
 	String s = mapfromjson.get("communityId");
-	if("".equals(s)&&s!=null){
+	if(!"".equals(s)&&s!=null){
 		long communityId = Long.parseLong(s);
 		 Community community =communityService.findById(communityId);
 		user.setCommunity(community);
@@ -63,6 +66,9 @@ public Map UpdateProfile(@RequestParam(value="json") String json){
 	   if(user.getCommunity()!=null){
 			map.put("communityId", String.valueOf(user.getCommunity().getId()));
 			map.put("communityName", user.getCommunity().getName());
+			}else{
+				map.put("communityId", "");
+				map.put("communityName", "");
 			}
 	    return map;
 	
@@ -112,5 +118,26 @@ Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
     return map;
 
 }
+
+	@RequestMapping(value = "/addCommunity", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = MediaTypes.JSON_UTF_8)
+	public Map validateUserInCommunity(@RequestParam(value = "json") String json) {
+		Map<String, String> mapfromjson = StringToMapUtil.MapFromJSON(json);
+
+		Long userId = Long.parseLong(mapfromjson.get("userId"));
+		User user =  accountService.getUser(userId);
+		String s = mapfromjson.get("communityId");
+
+	
+			 Community community =communityService.findById(Long.parseLong(s));
+			user.setCommunity(community);
+			user.setProperty(community.getProperty());
+		
+		accountService.updateRestUser(user);
+		
+		Map map = new HashMap();
+		map.put("result", "0");
+		return map;
+	}
 
 }

@@ -57,6 +57,7 @@ public class RepairController {
 	    if(user.getProperty()!=null){
 	    	searchParams.put("EQ_community.property.id", String.valueOf(user.getProperty().getId()));
 	    }
+	    
 		Page<Repair> repairs = repairService.getRepairs(searchParams, pageNumber, pageSize, sortType);
 		model.addAttribute("repairs", repairs);
 		model.addAttribute("sortType", sortType);

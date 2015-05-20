@@ -17,6 +17,14 @@ public class QuickStartServer {
 	public static final String[] TLD_JAR_NAMES = new String[] { "sitemesh", "spring-webmvc", "shiro-web",
 			"springside-core" };
 
+	/**
+	 * @param args
+	 * @throws Exception
+	 */
+	/**
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		// 设定Spring的profile
 		Profiles.setProfileAsSystemProperty(Profiles.DEVELOPMENT);

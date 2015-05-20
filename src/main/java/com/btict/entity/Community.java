@@ -1,15 +1,21 @@
 package com.btict.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * 社区实体
  * @author yangkaiwen
@@ -25,9 +31,12 @@ public class Community extends IdEntity {
     private String contacts;
     private String phone;
     private Date addDate;
-        private City city;
-        private Property property;
-    
+    private City city;
+    private Property property;
+    private Set<Repair> repairs;
+    private Set<Complaint> complaints;
+   
+    private Set<CommunityActivityInfo> activityInfos = null;
     public Community() {
 	}
 
@@ -39,7 +48,6 @@ public class Community extends IdEntity {
 	public String getName() {
 		return name;
 	}
-
 
 
 	public void setName(String name) {
@@ -108,9 +116,48 @@ public class Community extends IdEntity {
 		this.property = property;
 	}
 
+	
+	
+	
+	
+
+	@OneToMany
+	(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY,mappedBy="community")  
+	@JsonIgnore
+	public Set<Repair> getRepairs() {
+		return repairs;
+	}
+
+	public void setRepairs(Set<Repair> repairs) {
+		this.repairs = repairs;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	@OneToMany
+	(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY,mappedBy="community")  
+	@JsonIgnore
+	public Set<Complaint> getComplaints() {
+		return complaints;
+	}
+
+	public void setComplaints(Set<Complaint> complaints) {
+		this.complaints = complaints;
+	}
+
+	@OneToMany
+	(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY,mappedBy="community")  
+	@JsonIgnore
+	public Set<CommunityActivityInfo> getActivityInfos() {
+		return activityInfos;
+	}
+
+	public void setActivityInfos(Set<CommunityActivityInfo> activityInfos) {
+		this.activityInfos = activityInfos;
 	}
    
 }

@@ -11,16 +11,22 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.utils.Clock;
+
 import com.btict.entity.Community;
 import com.btict.repository.CommunityDAO;
+import com.btict.repository.UserDao;
 
 @Component
 @Transactional
 public class CommunityService {
   
 
-  public CommunityDAO communityDAO;
+  private CommunityDAO communityDAO;
+  
+ 
+  
   private Clock clock = Clock.DEFAULT;
+  
   public List<Community> findByCityId(long cityId){
 	  return communityDAO.findByCityId(cityId);
   }
@@ -32,7 +38,13 @@ public class CommunityService {
   }
   
   public void deleteCommunity(long id){
-	   communityDAO.delete(id);
+	   
+     
+      communityDAO.delete(id);
+      
+  }
+  public void deleteCommunityEntity(Community community){
+	  communityDAO.delete(community);
   }
   
   public Community saveCommunity(Community community){
@@ -40,27 +52,24 @@ public class CommunityService {
 	  return communityDAO.save(community);
   }
   
- 
   
+    
   public Page<Community> getCommunities( Map<String, Object> searchParams, int pageNumber, int pageSize,
 			String sortType) {
 	
 	    PageRequest pageRequest = SpecificationFindUtil.buildPageRequest(pageNumber, pageSize, sortType);
-  	Specification<Community> spec = SpecificationFindUtil.buildSpecification(searchParams, Community.class);
-	
-	
+  	    Specification<Community> spec = SpecificationFindUtil.buildSpecification(searchParams, Community.class);
 		return communityDAO.findAll(spec, pageRequest);
 	}
-
   
-  
-  @Autowired
-public void setCommunityDAO(CommunityDAO communityDAO) {
+   @Autowired
+  public void setCommunityDAO(CommunityDAO communityDAO) {
 	this.communityDAO = communityDAO;
-}
+  }
 
-public void setClock(Clock clock) {
+   public void setClock(Clock clock) {
 	this.clock = clock;
-}
+  }
+
   
 }

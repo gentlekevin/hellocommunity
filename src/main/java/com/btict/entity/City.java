@@ -2,7 +2,6 @@ package com.btict.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**

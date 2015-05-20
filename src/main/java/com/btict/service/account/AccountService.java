@@ -2,6 +2,7 @@
 package com.btict.service.account;
 
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.btict.entity.User;
 import com.btict.repository.UserDao;
 import com.btict.service.ServiceException;
@@ -25,7 +27,7 @@ import org.springside.modules.utils.Encodes;
  */
 // Spring Service Bean的标识.
 @Component
-
+@Transactional
 public class AccountService {
 
 	public static final String HASH_ALGORITHM = "SHA-1";
@@ -54,8 +56,20 @@ public class AccountService {
 		return userDao.findByPhoneAndRoles(phone,role);
 	}
 	
+	
+	public void setUserCommunityNull(Long id){
+		userDao.setUserCommunityNull(id);
+	}
+	
 	public User findByIdAndCommunityId(Long id,Long CommunityId){
 		return userDao.findByIdAndCommunityId(id, CommunityId);
+	}
+	
+	public void setUserProperyNull(Long communityId){
+		 userDao.setUserProperyNull(communityId);
+	}
+	public List<User> findByPropertyId(Long propertyId){
+		return userDao.findByPropertyId(propertyId);
 	}
 	public void registerUser(User user) {
 		entryptPassword(user);

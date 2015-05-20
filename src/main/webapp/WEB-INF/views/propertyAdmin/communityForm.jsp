@@ -18,8 +18,8 @@
 	<form  id="CommunityForm"  method="post" class="form-x" >
 	             <input type="hidden" name="id" value="${community.id}"/> 
 	              <shiro:lacksRole name="commonAdmin"><!-- 此时适合物业管理员 -->
-	              sdsd${community.property.id}
-	             <input type="hidden" name="pId" value="${community.property.id}"/>
+	            
+	             <input type="hidden" name="pId" value="${property.id}"/>
 	             </shiro:lacksRole>
 	             <shiro:hasRole name="commonAdmin">
 	             
