@@ -2,30 +2,41 @@
 package com.btict.web.activity;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springside.modules.web.MediaTypes;
 import org.springside.modules.web.Servlets;
 
 import com.btict.entity.Activity;
 import com.btict.entity.Community;
 import com.btict.entity.CommunityActivityInfo;
 import com.btict.entity.User;
+import com.btict.rest.RestException;
+import com.btict.rest.StringToMapUtil;
 import com.btict.service.ActivityService;
 import com.btict.service.CommunityActivityInfoService;
 import com.btict.service.CommunityService;
 import com.btict.service.account.AccountService;
 import com.btict.service.account.ShiroDbRealm.ShiroUser;
+import com.btict.util.DateUtil;
 import com.google.common.collect.Maps;
 
 
@@ -111,13 +122,50 @@ public class ActivityController {
 		
 	return "propertyAdmin/activityForm";
 	}
+	@ResponseBody
+	@RequestMapping(value="/page/uploadPic", method ={RequestMethod.GET,RequestMethod.POST},
+	 produces = MediaTypes.JSON_UTF_8)
+	public Map uploadpic(@RequestParam(value="pic") MultipartFile mult,Model model) {
+		String fileSeparator=  System.getProperty("file.separator");
+		StringBuffer ctxPath = new StringBuffer();
+		//ctxPath.append(request.getSession().getServletContext().getRealPath("/"));
+		String uploadfilePackage =fileSeparator+"usr"+ fileSeparator+"upload"+fileSeparator+"headImg"+fileSeparator;
+	    ctxPath.append(uploadfilePackage);
+	    
+	    String fileName =DateUtil.getCurrentTimestamp()+mult.getOriginalFilename();
+		 String uploadRealPath =ctxPath.append(fileName).toString();
+		   
+		File file = new File(uploadRealPath); 
+		
 	
+	
+		try {
+			System.out.println(mult.getInputStream());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	    try {
+			FileUtils.copyInputStreamToFile(mult.getInputStream(),file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+	    Map map = new HashMap();
+	    map.put("msg", "success");
+	    
+	return map;
+	}
 	
 	@RequestMapping(value="/operation/addActivity", method ={RequestMethod.GET,RequestMethod.POST})
-	public String addActivityAdmin(Activity activity,String communityId, Model model) {
+	public String addActivityAdmin(Activity activity,String communityId,
+			 Model model) {
 		
 		User user = accountService.getUser(getCurrentUserId());
 		activity.setProperty(user.getProperty());
+		
 		activityService.saveActivity(activity);
 		if(communityId!=null){
 			 String [] communityIds = communityId.split(",");
@@ -136,6 +184,11 @@ public class ActivityController {
 	   	
 		return "redirect:/propertyAdmin/list/activityList";
 	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value="/operation/deleteActivity",method ={RequestMethod.GET,RequestMethod.POST} )
 	public String deleteActivity(Long id){

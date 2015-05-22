@@ -7,7 +7,79 @@
 <head>
  <script src="${ctx}/static/js/jquery.js"></script>
     <script src="${ctx}/static/js/pintuer.js"></script>
+    <script src="${ctx}/static/js/ajaxfileupload.js"></script>
+    
+    
    
+   
+    <script type="text/javascript" >
+    function getGuidGenerator () {   
+        var S4 = function() {   
+           return (((1+Math.random())*0x10000)|0).toString(16).substring(1);   
+        };   
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());   
+    };  
+   
+   function fileUpLoad(url){
+	   var fileName = $("#pic").val();//文件名  
+	    fileName = fileName.split("\\");  
+	    fileName = fileName[fileName.length-1];  
+	    var guid = getGuidGenerator();//唯一标识guid  
+	    var data = {guid:guid};  
+	    jQuery.ajaxSettings.traditional = true;  
+    		
+    	$.ajaxFileUpload({
+    		            cache: true,
+    					type: "POST",
+    					dataType : 'json',
+    					fileElementId:'pic',
+    					url:url,
+    					data:data,
+    					async: false,   
+    					error : function(data,status,e) { 
+    						
+    			            alert('Operate Failed!');  
+    			        },
+    				    success: function(data) {
+    				    	
+    				    	alert('文件上传成功!');  
+    		                var next = $("#fileUpLoads").html();  
+    		                $("#fileUpLoads").html("<div id='"+guid+"' > <input type='text' name='fileNames' value='"
+    		                		+guid+"."+fileName+"'"/>"
+    		                		+"文件:"+fileName+
+    		                		"<a href='#' onclick='filedelete("+"\""+guid+"\""+","+"\""+fileName+"\""+")'>删除</a>"+"<br/></div>");  
+    		                $("#fileUpLoads").append(next);  
+    				    	
+    				    }
+    	
+    				});
+
+    };
+    
+    filedelete = function(guid,fileName){  
+        jQuery.ajaxSettings.traditional = true;  
+        var data = {guid:guid,fileName:fileName};  
+        $.ajax({  
+            url : '/PROJECT/function.do?method=filedelete',  
+            type : 'POST',  
+            dataType : 'json',  
+            data:data,  
+            async : false,  
+            error : function() {  
+                alert('Operate Failed!');  
+            },  
+            success : function(json) {  
+                if (json.resultFlag==false){  
+                    alert(json.resultMessage);  
+                }else{  
+                    alert('删除成功!');  
+                    $("#"+guid).remove();  
+                }  
+            }  
+        });  
+    };  
+   
+    </script>
     </head>
 <body>
 
@@ -65,7 +137,10 @@
                   <div class="form-group">
                     <div class="label"><label for="title">活动图片：</label></div>
                     <div class="field">
-                    	<a class="button input-file" href="javascript:void(0);">+ 浏览文件<input size="100" type="file" name="logo" data-validate="regexp#.+.(jpg|jpeg|png|gif)$:只能上传jpg|gif|png格式文件" /></a>
+                    	<a class="button input-file" href="javascript:void(0);">+ 浏览文件
+                    	<input size="100" type="file" name="pic" id="pic"  
+                    	onchange="fileUpLoad('${ctx}/propertyAdmin/page/uploadPic')" /></a>
+                    	<div id="fileUpLoads"></div>
                     </div>
                 </div>
                  <div class="form-button">
@@ -74,7 +149,7 @@
                    <c:when test="${formType=='add'}">   id="${ctx}/propertyAdmin/operation/addActivity" </c:when> 
                    <c:otherwise> id="${ctx}/propertyAdmin/operation/updateActivity" </c:otherwise>  
                   </c:choose>   
-                onclick="submitFrom(this.id,'ActivityForm')">提交</button>
+                onclick="submitFromTest(this.id,'ActivityForm')">提交</button>
                 <button class="button bg-main" id="${ctx}/propertyAdmin/list/activityList" onclick="show(this.id)">返回</button>
                 
                 </div>

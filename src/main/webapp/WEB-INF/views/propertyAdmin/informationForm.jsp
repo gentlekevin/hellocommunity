@@ -17,7 +17,7 @@
       </span><strong>注意：</strong>${msg}</div>
 
 	</c:if>
-    <form  id="InformationForm"  method="post" class="form-x" >
+    <form  id="InformationForm"  method="post" class="form-x" enctype="multipart/form-data">
     
      <div class="panel admin-panel">
      
