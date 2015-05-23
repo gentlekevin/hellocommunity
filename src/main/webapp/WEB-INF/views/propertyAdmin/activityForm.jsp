@@ -25,7 +25,7 @@
 	    fileName = fileName.split("\\");  
 	    fileName = fileName[fileName.length-1];  
 	    var guid = getGuidGenerator();//唯一标识guid  
-	    var data = {guid:guid};  
+	    var data = {guid:guid,type:"activity"};  
 	    jQuery.ajaxSettings.traditional = true;  
     		
     	$.ajaxFileUpload({
@@ -44,10 +44,10 @@
     				    	
     				    	alert('文件上传成功!');  
     		                var next = $("#fileUpLoads").html();  
-    		                $("#fileUpLoads").html("<div id='"+guid+"' > <input type='text' name='fileNames' value='"
-    		                		+guid+"."+fileName+"'"/>"
-    		                		+"文件:"+fileName+
-    		                		"<a href='#' onclick='filedelete("+"\""+guid+"\""+","+"\""+fileName+"\""+")'>删除</a>"+"<br/></div>");  
+    		                $("#fileUpLoads").html("<div id='"+guid+"' > <input type='text' name='fileNames' hidden='hidden' value='"
+    		                		+guid+"."+fileName+"'"+"/>"+fileName+
+    		                		"<a href='#' onclick='filedelete("+"\""+"${ctx}/propertyAdmin/upload/deletePic"+"\""+","+
+    		                				"\""+guid+"\""+","+"\""+fileName+"\""+")'>删除</a>"+"<br/></div>");  
     		                $("#fileUpLoads").append(next);  
     				    	
     				    }
@@ -56,11 +56,11 @@
 
     };
     
-    filedelete = function(guid,fileName){  
+    function filedelete (url,guid,fileName){  
         jQuery.ajaxSettings.traditional = true;  
-        var data = {guid:guid,fileName:fileName};  
+        var data = {guid:guid,fileName:fileName,type:"activity"};  
         $.ajax({  
-            url : '/PROJECT/function.do?method=filedelete',  
+            url : url,  
             type : 'POST',  
             dataType : 'json',  
             data:data,  
@@ -69,11 +69,12 @@
                 alert('Operate Failed!');  
             },  
             success : function(json) {  
-                if (json.resultFlag==false){  
-                    alert(json.resultMessage);  
-                }else{  
-                    alert('删除成功!');  
+                if (json.msg=="success"){ 
+                	alert('删除成功!');  
                     $("#"+guid).remove();  
+                      
+                }else{  
+                	alert(json.resultMessage);
                 }  
             }  
         });  
@@ -139,8 +140,19 @@
                     <div class="field">
                     	<a class="button input-file" href="javascript:void(0);">+ 浏览文件
                     	<input size="100" type="file" name="pic" id="pic"  
-                    	onchange="fileUpLoad('${ctx}/propertyAdmin/page/uploadPic')" /></a>
-                    	<div id="fileUpLoads"></div>
+                    	onchange="fileUpLoad('${ctx}/propertyAdmin/upload/uploadPic')" /></a>
+                    	<div id="fileUpLoads">
+                    	<c:if test="${not empty activity.pic}">
+                    	
+                    	<div id='"+guid+"' >
+                    	 <input type="text" name="fileNames" hidden="hidden" value="guid"/>
+                    	 fileName <a href='#' onclick="filedelete("${ctx}/propertyAdmin/upload/deletePic"+"\""+","+
+    		                				"\""+guid+"\""+","+"\""+fileName+"\""+")'>删除</a>
+    		                				
+    		                				<br/></div>"
+                    	
+                    	</c:if>
+                    	</div>
                     </div>
                 </div>
                  <div class="form-button">
@@ -149,7 +161,7 @@
                    <c:when test="${formType=='add'}">   id="${ctx}/propertyAdmin/operation/addActivity" </c:when> 
                    <c:otherwise> id="${ctx}/propertyAdmin/operation/updateActivity" </c:otherwise>  
                   </c:choose>   
-                onclick="submitFromTest(this.id,'ActivityForm')">提交</button>
+                onclick="submitFrom(this.id,'ActivityForm')">提交</button>
                 <button class="button bg-main" id="${ctx}/propertyAdmin/list/activityList" onclick="show(this.id)">返回</button>
                 
                 </div>

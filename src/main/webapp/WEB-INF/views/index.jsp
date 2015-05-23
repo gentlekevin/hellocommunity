@@ -69,7 +69,6 @@
 		
     	$.ajax({		cache: true,
     					type: "POST",
-    					fileElementId:'pic',
     					url:url,
     					data:$('#'+formId).serialize(),
     					async: false,    				    

@@ -122,49 +122,16 @@ public class ActivityController {
 		
 	return "propertyAdmin/activityForm";
 	}
-	@ResponseBody
-	@RequestMapping(value="/page/uploadPic", method ={RequestMethod.GET,RequestMethod.POST},
-	 produces = MediaTypes.JSON_UTF_8)
-	public Map uploadpic(@RequestParam(value="pic") MultipartFile mult,Model model) {
-		String fileSeparator=  System.getProperty("file.separator");
-		StringBuffer ctxPath = new StringBuffer();
-		//ctxPath.append(request.getSession().getServletContext().getRealPath("/"));
-		String uploadfilePackage =fileSeparator+"usr"+ fileSeparator+"upload"+fileSeparator+"headImg"+fileSeparator;
-	    ctxPath.append(uploadfilePackage);
-	    
-	    String fileName =DateUtil.getCurrentTimestamp()+mult.getOriginalFilename();
-		 String uploadRealPath =ctxPath.append(fileName).toString();
-		   
-		File file = new File(uploadRealPath); 
-		
+
 	
-	
-		try {
-			System.out.println(mult.getInputStream());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-	    try {
-			FileUtils.copyInputStreamToFile(mult.getInputStream(),file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
-	    Map map = new HashMap();
-	    map.put("msg", "success");
-	    
-	return map;
-	}
 	
 	@RequestMapping(value="/operation/addActivity", method ={RequestMethod.GET,RequestMethod.POST})
-	public String addActivityAdmin(Activity activity,String communityId,
+	public String addActivityAdmin(Activity activity,String communityId,String fileNames,
 			 Model model) {
 		
 		User user = accountService.getUser(getCurrentUserId());
 		activity.setProperty(user.getProperty());
+		activity.setPic(fileNames);
 		
 		activityService.saveActivity(activity);
 		if(communityId!=null){
