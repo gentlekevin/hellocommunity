@@ -27,6 +27,7 @@
 				/login = authc
 				/logout = logout
 				/static/** = anon
+				/usr/** = anon
 				/rest/** = anon
 				/upload/** = anon
 				/register/** = anon

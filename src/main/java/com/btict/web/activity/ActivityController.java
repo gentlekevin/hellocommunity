@@ -132,7 +132,11 @@ public class ActivityController {
 		User user = accountService.getUser(getCurrentUserId());
 		activity.setProperty(user.getProperty());
 		activity.setPic(fileNames);
-		
+		String content= activity.getContent(); 
+        if(content.contains("<img src=")){
+        	String picUrl = content.substring(content.indexOf("/hellocommunity"),content.indexOf(" alt"));
+        	activity.setPic(picUrl.substring(0,picUrl.length()-1));
+        }
 		activityService.saveActivity(activity);
 		if(communityId!=null){
 			 String [] communityIds = communityId.split(",");

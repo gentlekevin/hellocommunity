@@ -37,6 +37,7 @@ public class RestInformationController {
 			Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
 			
 			Long communityId = Long.parseLong(mapfromjson.get("communityId"));
+			
 	      List<CommunityActivityInfo> infos  = activityInfoService.findByCommunityId(communityId);
 	      
 		Map map = new HashMap();
@@ -45,7 +46,7 @@ public class RestInformationController {
 		RestInfo restInfo = null;
 		for(CommunityActivityInfo activityInfo:infos){
 			restInfo = new RestInfo();
-			restInfo.setId(String.valueOf(activityInfo.getInformation().getId()));
+			restInfo.setId(String.valueOf(activityInfo.getId()));
 			restInfo.setInfo(activityInfo.getInformation().getContent()==null?"":activityInfo.getInformation().getContent());
 			restInfo.setLogoUrl(activityInfo.getInformation().getPic()==null?"":activityInfo.getInformation().getPic());
 			restInfo.setTime(activityInfo.getInformation().getPublishDate().toString());

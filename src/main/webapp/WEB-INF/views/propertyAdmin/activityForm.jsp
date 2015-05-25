@@ -1,89 +1,68 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <html lang="zh-cn">
 <head>
- <script src="${ctx}/static/js/jquery.js"></script>
-    <script src="${ctx}/static/js/pintuer.js"></script>
-    <script src="${ctx}/static/js/ajaxfileupload.js"></script>
+ <link rel="stylesheet" href="${ctx}/static/css/default.css" />
+     <script charset="utf-8" src="${ctx}/static/js/kindeditor-all-min.js"></script>
+	   <script src="${ctx}/static/js/pintuer.js"></script>
+   <script type="text/javascript" >
+   $(function()  {
+	   var path = $("#path").val();
+	 
+			var editor = KindEditor.create('#content',{
+				
+				uploadJson : path+"/propertyAdmin/upload/uploadPic",
+				 allowImageUpload : true, 
+				items:[
+				        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'code', 'cut', 'copy', 'paste',
+				        'plainpaste',  '|', 'justifyleft', 'justifycenter', 'justifyright',
+				        'justifyfull',   'selectall', '|',  'formatblock', 'fontname', 'fontsize', '|', 'bold',
+				         'underline',  'lineheight', 'removeformat', '|', 'image', 'link', 'unlink'
+				     ],
+				     afterBlur: function(){this.sync();}
+				
+			});
+		});
+   
+   function updateAdmin(o){
+	   var firstTd=	$(o).parent().siblings().first().children().val();
+	   show(o.id+"?id="+firstTd);
+	   };
+	   function deleteSeletedRecord(url){
+	   	
+	   		var communityIds=""; 
+	   		$(":checkbox").each(function(i) {
+	   		  if (this.checked == true) { 
+	   			  communityIds =communityIds+ $(this).val()+","; 
+	   	      }
+	   		  })
+	   		
+	   		  if(communityIds==""){
+	   			  alert("请选中要删除的记录！");
+	   			  return false;
+	   		  }
+	   		if(confirm('确认删除?'))
+	   		{
+	   	  	show(url+"?communityIds="+communityIds);  
+	   	       };
+	   	        return false;
+	   		};
+	      
+   
+	</script>
     
     
    
    
-    <script type="text/javascript" >
-    function getGuidGenerator () {   
-        var S4 = function() {   
-           return (((1+Math.random())*0x10000)|0).toString(16).substring(1);   
-        };   
-        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());   
-    };  
-   
-   function fileUpLoad(url){
-	   var fileName = $("#pic").val();//文件名  
-	    fileName = fileName.split("\\");  
-	    fileName = fileName[fileName.length-1];  
-	    var guid = getGuidGenerator();//唯一标识guid  
-	    var data = {guid:guid,type:"activity"};  
-	    jQuery.ajaxSettings.traditional = true;  
-    		
-    	$.ajaxFileUpload({
-    		            cache: true,
-    					type: "POST",
-    					dataType : 'json',
-    					fileElementId:'pic',
-    					url:url,
-    					data:data,
-    					async: false,   
-    					error : function(data,status,e) { 
-    						
-    			            alert('Operate Failed!');  
-    			        },
-    				    success: function(data) {
-    				    	
-    				    	alert('文件上传成功!');  
-    		                var next = $("#fileUpLoads").html();  
-    		                $("#fileUpLoads").html("<div id='"+guid+"' > <input type='text' name='fileNames' hidden='hidden' value='"
-    		                		+guid+"."+fileName+"'"+"/>"+fileName+
-    		                		"<a href='#' onclick='filedelete("+"\""+"${ctx}/propertyAdmin/upload/deletePic"+"\""+","+
-    		                				"\""+guid+"\""+","+"\""+fileName+"\""+")'>删除</a>"+"<br/></div>");  
-    		                $("#fileUpLoads").append(next);  
-    				    	
-    				    }
-    	
-    				});
-
-    };
     
-    function filedelete (url,guid,fileName){  
-        jQuery.ajaxSettings.traditional = true;  
-        var data = {guid:guid,fileName:fileName,type:"activity"};  
-        $.ajax({  
-            url : url,  
-            type : 'POST',  
-            dataType : 'json',  
-            data:data,  
-            async : false,  
-            error : function() {  
-                alert('Operate Failed!');  
-            },  
-            success : function(json) {  
-                if (json.msg=="success"){ 
-                	alert('删除成功!');  
-                    $("#"+guid).remove();  
-                      
-                }else{  
-                	alert(json.resultMessage);
-                }  
-            }  
-        });  
-    };  
-   
-    </script>
     </head>
 <body>
-
+ <input id="path" hidden="true" value="${ctx}">
 <c:if test="${not empty msg}">
 <div class="alert alert-yellow"><span class="close">
 
@@ -92,7 +71,7 @@
 	</c:if>
     <form  id="ActivityForm"  method="post" class="form-x" >
     
-     <div class="panel admin-panel">
+     <div class="panel community-panel">
      
     	<div class="panel-head"><strong>社区列表</strong></div>
     	 <div class="padding border-bottom">
@@ -121,9 +100,11 @@
                     
           </table> 
           </div> 
+          
                     <div class="form-group">
-                    <div class="label"><label for="title">活动标题：</label></div>
-                    <div class="field">
+                    <div class="label">
+                    <label for="title">活动标题：</label></div>
+                     <div style="width:50%"  class="field">
                     	<input type="text" class="input" id="title" name="title" size="30" value="${activity.title}"
                     	 placeholder="请输入活动标题" data-validate="required:请输入活动标题。" />
                     </div>
@@ -131,30 +112,13 @@
                  <div class="form-group">
                     <div class="label"><label for="title">活动内容：</label></div>
                     <div class="field">
-                    	<textarea class="input" rows="5" cols="50" id="content" name="content" 
-                    	placeholder="请输入活动内容" > ${activity.content}</textarea>
+                    	 <textarea id="content" name="content"  style="width:56%;height:250px;visibility:hidden;"data-validate="required:请输入活动内容。">
+                    	 ${activity.content}</textarea>
                     </div>
                 </div>
-                  <div class="form-group">
-                    <div class="label"><label for="title">活动图片：</label></div>
-                    <div class="field">
-                    	<a class="button input-file" href="javascript:void(0);">+ 浏览文件
-                    	<input size="100" type="file" name="pic" id="pic"  
-                    	onchange="fileUpLoad('${ctx}/propertyAdmin/upload/uploadPic')" /></a>
-                    	<div id="fileUpLoads">
-                    	<c:if test="${not empty activity.pic}">
-                    	
-                    	<div id='"+guid+"' >
-                    	 <input type="text" name="fileNames" hidden="hidden" value="guid"/>
-                    	 fileName <a href='#' onclick="filedelete("${ctx}/propertyAdmin/upload/deletePic"+"\""+","+
-    		                				"\""+guid+"\""+","+"\""+fileName+"\""+")'>删除</a>
-    		                				
-    		                				<br/></div>"
-                    	
-                    	</c:if>
-                    	</div>
-                    </div>
-                </div>
+               
+                  
+                
                  <div class="form-button">
                 <button class="button bg-main"  
                    <c:choose>  

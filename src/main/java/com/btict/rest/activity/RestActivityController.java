@@ -84,10 +84,7 @@ public class RestActivityController {
 		}
 		public void setTime(String time) {
 			this.time = time;
-		}
-		
-		
-		
+		}		
 
 	 }
 }

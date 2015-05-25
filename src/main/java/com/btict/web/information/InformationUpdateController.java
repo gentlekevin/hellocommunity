@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.btict.entity.Community;
 import com.btict.entity.CommunityActivityInfo;
 import com.btict.entity.Information;
@@ -37,6 +38,11 @@ public class InformationUpdateController {
 	public String updateInformation(@ModelAttribute("information") Information information ,String communityId,
 			String oldCommunityIds, Model model){
 		
+		String content= information.getContent(); 
+        if(content.contains("<img src=")){
+        	String picUrl = content.substring(content.indexOf("/hellocommunity"),content.indexOf(" alt"));
+        	information.setPic(picUrl.substring(0,picUrl.length()-1));
+        }
 		informationService.saveInformation(information);
 		
 		if(!oldCommunityIds.equals(communityId)&&oldCommunityIds!=null&&oldCommunityIds!=""){//对社区进行了修改

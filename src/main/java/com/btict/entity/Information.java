@@ -1,15 +1,20 @@
 package com.btict.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * 资讯实体
  * @author yangkaiwen
@@ -25,7 +30,7 @@ public class Information extends IdEntity {
     private String pic;
  	private Date publishDate;
     private Property property;
- 
+    private Set<CommunityActivityInfo> infos;
     
     
     public Information() {
@@ -76,6 +81,16 @@ public class Information extends IdEntity {
 		this.property = property;
 	}
 
+	@OneToMany
+	(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY,mappedBy="information")  
+	@JsonIgnore
+	public Set<CommunityActivityInfo> getInfos() {
+		return infos;
+	}
+
+	public void setInfos(Set<CommunityActivityInfo> infos) {
+		this.infos = infos;
+	}
 
 	@Override
 	public String toString() {

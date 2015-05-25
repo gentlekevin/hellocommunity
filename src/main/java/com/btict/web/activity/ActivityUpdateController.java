@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.btict.entity.Community;
 import com.btict.entity.CommunityActivityInfo;
 import com.btict.entity.Activity;
@@ -36,12 +37,14 @@ public class ActivityUpdateController {
 	@RequestMapping(value="/operation/updateActivity",method ={RequestMethod.GET,RequestMethod.POST} )
 	public String updateActivity(@ModelAttribute("activity") Activity activity ,String communityId,
 			String oldCommunityIds, Model model){
-		
+		String content= activity.getContent(); 
+        if(content.contains("<img src=")){
+        	String picUrl = content.substring(content.indexOf("/hellocommunity"),content.indexOf(" alt"));
+        	activity.setPic(picUrl.substring(0,picUrl.length()-1));
+        }
+	
 		activityService.saveActivity(activity);
 		
-		System.out.println("oldCommunityIds"+oldCommunityIds);
-		
-		System.out.println("communityId"+communityId);
 		if(!oldCommunityIds.equals(communityId)&&oldCommunityIds!=null&&oldCommunityIds!=""){//对社区进行了修改
 			
 				communityActivityInfoService.deleteByActivityId(activity.getId());

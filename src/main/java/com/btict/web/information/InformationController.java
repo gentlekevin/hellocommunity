@@ -120,6 +120,12 @@ public class InformationController {
 		
 		User user = accountService.getUser(getCurrentUserId());
 		information.setProperty(user.getProperty());
+		String content= information.getContent(); 
+        if(content.contains("<img src=")){
+        	String picUrl = content.substring(content.indexOf("/hellocommunity"),content.indexOf(" alt"));
+        	information.setPic(picUrl.substring(0,picUrl.length()-1));
+        }
+			
 		informationService.saveInformation(information);
 		if(communityId!=null){
 			 String [] communityIds = communityId.split(",");
@@ -144,7 +150,7 @@ public class InformationController {
 	public String deleteInformation(Long id){
 		
 		informationService.deleteInformation(id);
-		communityActivityInfoService.deleteByInformtionId(id);
+		//communityActivityInfoService.deleteByInformtionId(id);
 		return "redirect:/propertyAdmin/list/informationList";
 		
 	}
