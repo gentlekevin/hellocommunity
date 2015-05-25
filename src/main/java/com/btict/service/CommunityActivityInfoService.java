@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.utils.Clock;
@@ -34,10 +35,17 @@ public class CommunityActivityInfoService {
 	  return communityActivityInfoDAO.findByInformationId(informationId);
   }
   
-  public List<CommunityActivityInfo>   findByCommunityId(long communityId){
-	  return communityActivityInfoDAO.findByCommunityId(communityId);
-  }
 
+	public  List<CommunityActivityInfo> findInfoByCommunityId(Long communityId){
+	  return communityActivityInfoDAO.findInfoByCommunityId(communityId,"0");
+  }
+	
+	
+	public  List<CommunityActivityInfo> findActivityByCommunityId(Long communityId){
+		return communityActivityInfoDAO.findActivityByCommunityId(communityId,"2");
+	}
+  
+  
   public List<CommunityActivityInfo>   findByActivityId(long activityId){
 	  return communityActivityInfoDAO.findByActivityId(activityId);
   }

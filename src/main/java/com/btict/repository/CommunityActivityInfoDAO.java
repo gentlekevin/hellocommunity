@@ -19,7 +19,11 @@ JpaSpecificationExecutor<CommunityActivityInfo>{
 	
 	public  List<CommunityActivityInfo> findByActivityId(Long activityId);
 	
-	public  List<CommunityActivityInfo> findByCommunityId(Long communityId);
+	@Query(" from  CommunityActivityInfo a where a.community.id=?1 and a.type=?2")
+	public  List<CommunityActivityInfo> findInfoByCommunityId(Long communityId,String type);
+	
+	@Query("from  CommunityActivityInfo a where a.community.id=?1 and a.type=?2")
+	public  List<CommunityActivityInfo> findActivityByCommunityId(Long communityId,String type);
 	
 	@Modifying
 	@Query("delete from  CommunityActivityInfo a where a.information.id=?1")
