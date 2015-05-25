@@ -37,7 +37,7 @@ public class RestActivityController {
 			Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
 			
 			Long communityId = Long.parseLong(mapfromjson.get("communityId"));
-	      List<CommunityActivityInfo> infos  = activityInfoService.findByCommunityId(communityId);
+	      List<CommunityActivityInfo> infos  = activityInfoService.findActivityByCommunityId(communityId);
 	      
 		Map map = new HashMap();
 		map.put("result", "0");

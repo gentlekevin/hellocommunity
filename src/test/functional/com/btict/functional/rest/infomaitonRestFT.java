@@ -76,7 +76,8 @@ public class infomaitonRestFT extends BaseFunctionalTestCase {
 		MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
 
 		Map map = new HashMap<>();
-		map.put("communityId", "12");
+		
+		map.put("communityId", "7");
 		
 
 		
