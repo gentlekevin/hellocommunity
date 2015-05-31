@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletRequest;
 
@@ -126,17 +128,21 @@ public class ActivityController {
 	
 	
 	@RequestMapping(value="/operation/addActivity", method ={RequestMethod.GET,RequestMethod.POST})
-	public String addActivityAdmin(Activity activity,String communityId,String fileNames,
-			 Model model) {
+	public String addActivityAdmin(Activity activity,String communityId,Model model) {
 		
 		User user = accountService.getUser(getCurrentUserId());
 		activity.setProperty(user.getProperty());
-		activity.setPic(fileNames);
+
 		String content= activity.getContent(); 
-        if(content.contains("<img src=")){
-        	String picUrl = content.substring(content.indexOf("/hellocommunity"),content.indexOf(" alt"));
-        	activity.setPic(picUrl.substring(0,picUrl.length()-1));
-        }
+		if(content.contains("<img src=")){//提取content中的图片路径存到pic字段中
+			Pattern p=Pattern.compile("<img src=.* alt=\".*\" />");
+    		Matcher m=p.matcher(content);
+    		while(m.find()){
+    			String str = m.group();
+    			activity.setPic(str.substring(str.indexOf("/hellocommunity"),str.indexOf(" alt")-1));
+    		
+    		}
+          }
 		activityService.saveActivity(activity);
 		if(communityId!=null){
 			 String [] communityIds = communityId.split(",");

@@ -24,13 +24,14 @@ public class Repair extends IdEntity {
 	private String content;
 	private String pic;
 	private String handlePerson;
-	private Date handleDate;
+	private String phone;
 	private User user;
     private Date repairDate;
     private String title;
     private String address;
     private String status;
     private Community community;
+    private String flag;//标志：0未完成，1完成
     public Repair() {
 	}
 
@@ -93,15 +94,28 @@ public class Repair extends IdEntity {
 	public void setHandlePerson(String handlePerson) {
 		this.handlePerson = handlePerson;
 	}
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	public Date getHandleDate() {
-		return handleDate;
+	
+	
+
+	
+
+
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setHandleDate(Date handleDate) {
-		this.handleDate = handleDate;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	public Date getRepairDate() {
 		return repairDate;

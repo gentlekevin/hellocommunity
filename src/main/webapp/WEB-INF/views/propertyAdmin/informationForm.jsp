@@ -77,7 +77,7 @@
     	 </div>
     	 
 	        <input type="hidden" name="id" value="${information.id}"/>
-	        <input type="hidden" name="pic" value="${information.pic}"/>
+	        
 	        <input type="hidden" name="oldCommunityIds" value="${oldCommunityIds}"/> 
                <table id="table" class="table table-hover">
         	<tr><th width="20">选择</th><th width="20">序号</th><th width="200">社区名称</th>

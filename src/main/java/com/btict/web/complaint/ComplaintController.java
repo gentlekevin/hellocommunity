@@ -1,5 +1,5 @@
 
-package com.btict.web.repair;
+package com.btict.web.complaint;
 
 import java.util.Map;
 import javax.servlet.ServletRequest;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.modules.web.Servlets;
-import com.btict.entity.Repair;
+import com.btict.entity.Complaint;
 import com.btict.entity.User;
-import com.btict.service.RepairService;
+import com.btict.service.ComplaintService;
 import com.btict.service.CommunityService;
 import com.btict.service.account.AccountService;
 import com.btict.service.account.ShiroDbRealm.ShiroUser;
@@ -22,7 +22,7 @@ import com.google.common.collect.Maps;
 
 @Controller
 @RequestMapping(value = "/propertyAdmin")
-public class RepairController {
+public class ComplaintController {
 	private static final String PAGE_SIZE = "10";
 	private static Map<String, String> sortTypes = Maps.newLinkedHashMap();
 	static {
@@ -35,9 +35,9 @@ public class RepairController {
      @Autowired
 	private CommunityService communityService;
 	@Autowired
-	private RepairService repairService;
-	@RequestMapping(value="/list/repairList",method = {RequestMethod.GET,RequestMethod.POST,})
-	public String repairList(@RequestParam(value = "page", defaultValue = "1") int pageNumber,
+	private ComplaintService complaintService;
+	@RequestMapping(value="/list/complaintList",method = {RequestMethod.GET,RequestMethod.POST,})
+	public String complaintList(@RequestParam(value = "page", defaultValue = "1") int pageNumber,
 			@RequestParam(value = "page.size", defaultValue = PAGE_SIZE) int pageSize,
 			@RequestParam(value = "sortType", defaultValue = "auto") String sortType, Model model,
 			ServletRequest request) {
@@ -46,22 +46,22 @@ public class RepairController {
 	    if(user.getProperty()!=null){
 	    	searchParams.put("EQ_community.property.id", String.valueOf(user.getProperty().getId()));
 	    }
-	    Page<Repair> repairs = repairService.getRepairs(searchParams, pageNumber, pageSize, sortType);
-		model.addAttribute("repairs", repairs);
+	    Page<Complaint> complaints = complaintService.getComplaints(searchParams, pageNumber, pageSize, sortType);
+		model.addAttribute("complaints", complaints);
 		model.addAttribute("sortType", sortType);
 		model.addAttribute("sortTypes", sortTypes);
 		// 将搜索条件编码成字符串，用于排序，分页的URL
 		model.addAttribute("searchParams", Servlets.encodeParameterStringWithPrefix(searchParams, "search_"));
-        model.addAttribute("thisPagePath","/propertyAdmin/list/repairList");
-		return "propertyAdmin/repairList";
+        model.addAttribute("thisPagePath","/propertyAdmin/list/complaintList");
+		return "propertyAdmin/complaintList";
 	}
 	
-	@RequestMapping(value="/page/updateRepairForm", method ={RequestMethod.GET,RequestMethod.POST})
-	public String updateRepairForm(Model model,Long id) {
+	@RequestMapping(value="/page/updateComplaintForm", method ={RequestMethod.GET,RequestMethod.POST})
+	public String updateComplaintForm(Model model,Long id) {
 		
-       	Repair repair = repairService.findRepairById(id);
-		model.addAttribute("repair", repair);
-		return "propertyAdmin/repairForm";
+       	Complaint complaint = complaintService.findComplaintById(id);
+		model.addAttribute("complaint", complaint);
+		return "propertyAdmin/complaintForm";
 	}
 	/**
 	 * 取出Shiro中的当前用户Id.

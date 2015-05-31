@@ -84,6 +84,10 @@ public class CommunityController {
 	
 		
 		Community community = communityService.findById(id);
+		User user = getCurrentUser();
+		if(user.getProperty()!=null){
+		model.addAttribute("property", user.getProperty());
+		}
 		model.addAttribute("community", community);
 		model.addAttribute("formType", "update");
 		model.addAttribute("properties", propertyService.findAllPropertis());

@@ -1,5 +1,5 @@
 
-package com.btict.web.repair;
+package com.btict.web.complaint;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,35 +11,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.modules.utils.Clock;
 
-import com.btict.entity.Repair;
-import com.btict.service.RepairService;
+import com.btict.entity.Complaint;
+import com.btict.service.ComplaintService;
 import com.btict.service.PropertyService;
 
 
 @Controller
 @RequestMapping(value = "/propertyAdmin")
-public class RepairUpdateController {
+public class ComplaintUpdateController {
 	
 	
 	@Autowired
 	private PropertyService propertyService;
 	@Autowired
-	private RepairService repairService;
+	private ComplaintService complaintService;
 	
 	private Clock clock = Clock.DEFAULT;
 
 	
-	@RequestMapping(value="/operation/repairUpdate",method ={RequestMethod.GET,RequestMethod.POST} )
-	public String updateRepair(@ModelAttribute("repair") Repair repair,Model model){
+	@RequestMapping(value="/operation/complaintUpdate",method ={RequestMethod.GET,RequestMethod.POST} )
+	public String updateComplaint(@ModelAttribute("complaint") Complaint complaint,Model model){
 		
 		
-		if("3".equals(repair.getStatus())){
-			repair.setFlag("1");//设置成完成
-			repair.setRepairDate(clock.getCurrentDate());
+		if("3".equals(complaint.getStatus())){
+			complaint.setFlag("1");//设置成完成
+			complaint.setComplaintDate(clock.getCurrentDate());
 		}
-		repairService.saveRepair(repair);
-		
-	   return "redirect:/propertyAdmin/list/repairList";
+		complaintService.saveComplaint(complaint);
+	   return "redirect:/propertyAdmin/list/complaintList";
 		
 	}
 	
@@ -51,7 +50,7 @@ public class RepairUpdateController {
 	public void getProperty(@RequestParam(value = "id", defaultValue = "-1") Long id, Model model) {
 		
 		if (id != -1) {
-			model.addAttribute("repair", repairService.findRepairById(id));
+			model.addAttribute("complaint", complaintService.findComplaintById(id));
 		}
 	}
 

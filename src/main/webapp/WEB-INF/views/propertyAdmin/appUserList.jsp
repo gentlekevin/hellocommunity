@@ -25,11 +25,11 @@ $(document).ready(function(){
             <table id="table" class="table table-hover">
         	<tr><th width="45">序号</th><th width="120">登录账号</th>
         	<th width="120">角色</th><th width="120">姓名</th><th width="80">性别</th>
-        	<th width="120">手机</th><th width="120">社区</th><th width="*">添加时间</th></tr>
+        	<th width="120">社区</th><th width="*">添加时间</th></tr>
                <c:forEach items="${users.content}" var="user" varStatus="xh">
 	    	<tr>
             <td>${xh.count}</td>
-            <td>${user.loginName}</td>
+            <td>${user.phone}</td>
             <td>App用户</td>
             <td>${user.name}</td>
             <td>  <c:choose>  
@@ -38,7 +38,7 @@ $(document).ready(function(){
                    <c:otherwise>  </c:otherwise>  
                   </c:choose>   
             </td>
-            <td>${user.phone}</td>
+          
             <td>${user.community.name}</td>
             <td>${user.registerDate}</td>
             

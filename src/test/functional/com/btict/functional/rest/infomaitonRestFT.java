@@ -77,7 +77,7 @@ public class infomaitonRestFT extends BaseFunctionalTestCase {
 
 		Map map = new HashMap<>();
 		
-		map.put("communityId", "7");
+		map.put("communityId", "12");
 		
 
 		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +47,21 @@ public class RestActivityController {
 		for(CommunityActivityInfo activityInfo:infos){
 			restInfo = new RestInfo();
 			restInfo.setId(String.valueOf(activityInfo.getActivity().getId()));
-			restInfo.setInfo(activityInfo.getActivity().getContent()==null?"":activityInfo.getActivity().getContent());
-			restInfo.setLogoUrl(activityInfo.getActivity().getPic()==null?"":activityInfo.getActivity().getPic());
+			restInfo.setTitle(activityInfo.getActivity().getTitle());
+			restInfo.setFrom(activityInfo.getProperty().getName());
+			restInfo.setInfo(activityInfo.getActivity().getContent()==null?"":
+				Pattern.compile("<img src=.* alt=\".*\" />")
+				.matcher(activityInfo.getActivity().getContent()).replaceAll(""));
+			if(activityInfo.getActivity().getPic()!=null){
+				if(activityInfo.getActivity().getPic().contains(",")){
+					restInfo.setLogoUrl(activityInfo.getActivity().getPic().substring(0, activityInfo.getActivity().getPic().indexOf(",")));
+				}else{
+					restInfo.setLogoUrl(activityInfo.getActivity().getPic());
+				}
+			}else{
+				restInfo.setLogoUrl("");
+			}
+						
 			restInfo.setTime(activityInfo.getActivity().getPublishDate().toString());
 	     	list.add(restInfo);
 				}
@@ -59,6 +73,8 @@ public class RestActivityController {
 	
 		private String id;
 		private String info;
+		private String title;
+		private String from;
 		private String logoUrl;
 		private String time;
 		public String getId() {
@@ -84,6 +100,18 @@ public class RestActivityController {
 		}
 		public void setTime(String time) {
 			this.time = time;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		public String getFrom() {
+			return from;
+		}
+		public void setFrom(String from) {
+			this.from = from;
 		}		
 
 	 }

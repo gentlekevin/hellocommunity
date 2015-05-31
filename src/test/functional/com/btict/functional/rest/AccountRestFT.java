@@ -65,6 +65,24 @@ public class AccountRestFT extends BaseFunctionalTestCase {
 				String string = restTemplate.postForObject(location, param, String.class);
 		System.out.println(string);
 	}
+	
+	@Test
+	@Category(Smoke.class)
+	public void addCommunity() {
+		String location = resourceUrl+"/addCommunity";
+		
+	
+		MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+	
+		System.out.println(location);
+		Map map = new HashMap<>();
+		map.put("userId", "41");
+		
+		map.put("communityId", "1");
+		param.add("json", jsonMapper.toJson(map));
+				String string = restTemplate.postForObject(location, param, String.class);
+		System.out.println(string);
+	}
 	*/
 	@Test
 	@Category(Smoke.class)
@@ -83,6 +101,5 @@ public class AccountRestFT extends BaseFunctionalTestCase {
 				String string = restTemplate.postForObject(location, param, String.class);
 		System.out.println(string);
 	}
-	
 	
 }

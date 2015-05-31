@@ -25,7 +25,7 @@ public class registerRestFT extends BaseFunctionalTestCase {
 	private final RestTemplate restTemplate = new RestTemplate();
 	private final JsonMapper jsonMapper = new JsonMapper();
 
-  
+  /*
 	@Test
 	@Category(Smoke.class)
 	public void UploadHeadImg() {
@@ -41,6 +41,21 @@ public class registerRestFT extends BaseFunctionalTestCase {
 		String string = restTemplate.postForObject(location, param, String.class);
 		System.out.println(string);
 	}
+	*/
+	@Test
+	@Category(Smoke.class)
+	public void registerCode() {
+		String location = resourceUrl+"/register/getCode";
+		System.out.println(location);
+		
+		MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
 
+		Map map = new HashMap<>();
+		
+		map.put("phone", "13126751501");
+		param.add("json", jsonMapper.toJson(map));
+		String string = restTemplate.postForObject(location, param, String.class);
+		System.out.println(string);
+	}
 	
 }

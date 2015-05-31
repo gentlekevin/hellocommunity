@@ -110,6 +110,7 @@ public class RestRepairController {
             repair.setTitle(title); 
             repair.setUserPhone(tel);
             repair.setAddress(address);
+            repair.setFlag("0");
             repairService.saveRepair(repair);
             Map map = new HashMap();
     		map.put("result", "0");

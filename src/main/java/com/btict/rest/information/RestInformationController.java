@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,8 +48,21 @@ public class RestInformationController {
 		for(CommunityActivityInfo activityInfo:infos){
 			restInfo = new RestInfo();
 			restInfo.setId(String.valueOf(activityInfo.getInformation().getId()));
-			restInfo.setInfo(activityInfo.getInformation().getContent()==null?"":activityInfo.getInformation().getContent());
-			restInfo.setLogoUrl(activityInfo.getInformation().getPic()==null?"":activityInfo.getInformation().getPic());
+			restInfo.setTitle(activityInfo.getInformation().getTitle());
+			restInfo.setInfo(activityInfo.getInformation().getContent()==null?"":
+				
+				Pattern.compile("<img src=.* alt=\".*\" />")
+				.matcher(activityInfo.getInformation().getContent()).replaceAll(""));
+			if(activityInfo.getInformation().getPic()!=null){
+				if(activityInfo.getInformation().getPic().contains(",")){
+					restInfo.setLogoUrl(activityInfo.getInformation().getPic().substring(0, activityInfo.getInformation().getPic().indexOf(",")));
+				}else{
+					restInfo.setLogoUrl(activityInfo.getInformation().getPic());
+				}
+			}else{
+				restInfo.setLogoUrl("");
+			}
+			restInfo.setFrom(activityInfo.getProperty().getName());
 			restInfo.setTime(activityInfo.getInformation().getPublishDate().toString());
 	     	list.add(restInfo);
 				}
@@ -59,8 +73,10 @@ public class RestInformationController {
 	 public class RestInfo{
 	
 		private String id;
+		private String title;
 		private String info;
 		private String logoUrl;
+		private String from;//发布单位：物业公司
 		private String time;
 		public String getId() {
 			return id;
@@ -85,6 +101,18 @@ public class RestInformationController {
 		}
 		public void setTime(String time) {
 			this.time = time;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		public String getFrom() {
+			return from;
+		}
+		public void setFrom(String from) {
+			this.from = from;
 		}
 		
 		

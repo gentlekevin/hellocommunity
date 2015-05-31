@@ -2,6 +2,9 @@
 package com.btict.web.activity;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +42,13 @@ public class ActivityUpdateController {
 			String oldCommunityIds, Model model){
 		String content= activity.getContent(); 
         if(content.contains("<img src=")){
-        	String picUrl = content.substring(content.indexOf("/hellocommunity"),content.indexOf(" alt"));
-        	activity.setPic(picUrl.substring(0,picUrl.length()-1));
+        	Pattern p=Pattern.compile("<img src=.* alt=\".*\" />");
+    		Matcher m=p.matcher(content);
+    		while(m.find()){
+    			String str = m.group();
+    			activity.setPic(str.substring(str.indexOf("/hellocommunity"),str.indexOf(" alt")-1));
+    		
+    		}
         }
 	
 		activityService.saveActivity(activity);

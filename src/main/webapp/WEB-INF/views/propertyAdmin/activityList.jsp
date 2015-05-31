@@ -65,8 +65,9 @@ function deleteSeletedRecord(url){
             <td>${activity.property.name}</td>
             <td>${activity.publishDate}</td>
              <td>
-           
+           <c:if test="${user.property.name!=null}"><!-- 只能物业管理员能进行增加资讯信息 -->
             <a class="button border-blue button-little"  style="cursor:pointer;" onclick="show('${ctx}/propertyAdmin/page/updateActivityForm?id=${activity.id}');">修改</a>
+            </c:if>
              <a class="button border-yellow button-little" style="cursor:pointer;"
              onclick="{if(confirm('确认删除?')){return show('${ctx}/propertyAdmin/operation/deleteActivity?id=${activity.id}');}
              return false;}">删除</a></td>

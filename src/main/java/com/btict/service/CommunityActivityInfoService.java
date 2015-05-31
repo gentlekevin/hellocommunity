@@ -42,7 +42,7 @@ public class CommunityActivityInfoService {
 	
 	
 	public  List<CommunityActivityInfo> findActivityByCommunityId(Long communityId){
-		return communityActivityInfoDAO.findActivityByCommunityId(communityId,"2");
+		return communityActivityInfoDAO.findActivityByCommunityId(communityId,"1");
 	}
   
   

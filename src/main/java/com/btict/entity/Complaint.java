@@ -21,13 +21,17 @@ public class Complaint extends IdEntity {
 
 	
 	private String userPhone;
+	private String title;
 	private String content;
 	private String pic;
 	private String handlePerson;
+	private String phone;
 	private Date handleDate;
 	private User user;
     private Date complaintDate;
     private Community community;
+    private String status;
+    private String flag;
     
     public Complaint() {
 	}
@@ -110,6 +114,38 @@ public class Complaint extends IdEntity {
 
 	public void setCommunity(Community community) {
 		this.community = community;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	
