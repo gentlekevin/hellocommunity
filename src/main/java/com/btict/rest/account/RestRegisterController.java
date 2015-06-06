@@ -32,17 +32,14 @@ public class RestRegisterController {
 	
 	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},produces = MediaTypes.JSON_UTF_8)
 	  public Map login(@RequestParam(value="json") String json){
-		
-		
+				
 		Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
 		String phone = mapfromjson.get("phone");
 		String code = mapfromjson.get("smsCode");
-		
 		String result =sMSService.validteCode(phone, code);
 		if(!"success".equals(result)){
 			throw new RestException(HttpStatus.OK, RestException.errorResult(result));
 		}
-		
 		User user = new User();
 		user.setPhone(phone);
 		user.setPassword(mapfromjson.get("password"));

@@ -32,10 +32,13 @@ public class CommonAdminController {
 		
 	}
 	@Autowired
-	private UserService userService;
+	private AccountService accountService;
+	
 	
 	@Autowired
-	private AccountService accountService;
+	private UserService userService;
+	
+	
 	@RequestMapping(value="/list/commonAdminList",method = {RequestMethod.GET,RequestMethod.POST})
 		
 		public String commonAdminList(@RequestParam(value = "page", defaultValue = "1") int pageNumber,

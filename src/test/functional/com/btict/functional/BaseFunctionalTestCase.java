@@ -13,11 +13,12 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import com.btict.QuickStartServer;
 import org.springside.modules.test.data.DataFixtures;
 import org.springside.modules.test.jetty.JettyFactory;
 import org.springside.modules.test.spring.Profiles;
 import org.springside.modules.utils.PropertiesLoader;
+
+import com.btict.QuickStartServer;
 
 /**
  * 功能测试基类.

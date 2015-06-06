@@ -25,7 +25,7 @@ import org.springside.modules.utils.Encodes;
  * 
  * @author calvin
  */
-// Spring Service Bean的标识.
+
 @Component
 @Transactional
 public class AccountService {
