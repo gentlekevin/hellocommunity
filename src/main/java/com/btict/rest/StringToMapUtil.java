@@ -19,4 +19,17 @@ public class StringToMapUtil {
 		}
 		return map;
 	}
+	
+	public static Map<String,Map> StringMapFromJSON(String json){
+		ObjectMapper mapper = new ObjectMapper(); 
+		Map map =null;
+		try {
+			 map = 	 mapper.readValue(json, Map.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
 }
