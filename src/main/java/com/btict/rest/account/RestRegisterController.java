@@ -49,15 +49,15 @@ public class RestRegisterController {
 				
 		Map <String,String>mapfromjson = StringToMapUtil.MapFromJSON(json);
 		
-		String name = mapfromjson.get("name");
-		String email = mapfromjson.get("email");
+		//String name = mapfromjson.get("name");
+		//String email = mapfromjson.get("email");
 		String phone = mapfromjson.get("phone");
 		String code = mapfromjson.get("smsCode");
 		String password  = mapfromjson.get("password");
 		User user = new User();
 		user.setPhone(phone);
 		user.setPassword(password);
-		String shangchengflag = registerShangcheng(name, phone, email, password);
+		String shangchengflag = registerShangcheng(phone,  password);
 		//-------------------------商城和小区注册处理逻辑------------------------------------
 		//商城          失败                                                                     失败               成功                                                                              成功
 		//小区          不能注册（验证码失败/已经注册/其他）   可以注册       不能注册（验证码失败/已经注册/其他）   可以注册
@@ -108,7 +108,7 @@ public class RestRegisterController {
 			return map;
 	  }	 
 	//注册商城
-	  private String registerShangcheng(String name,String phone,String email,String password){
+	  private String registerShangcheng(String phone,String password){
 
 		  		
 			MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
@@ -122,9 +122,9 @@ public class RestRegisterController {
 			List field =  new ArrayList<>();
 			field.add(map1);
 			json.put("field", field);
-			json.put("email", email);
+			json.put("email", "");
 			json.put("password", password);
-			json.put("name", name);
+			json.put("name", phone);
 			System.out.println(jsonMapper.toJson(json));
 			param.add("json", jsonMapper.toJson(json));
 			String string = restTemplate.postForObject(shangchengRegisterURL, param, String.class);

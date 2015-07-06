@@ -43,8 +43,7 @@ public class registerRestFT extends BaseFunctionalTestCase {
 		map.put("password", "test");
 		map.put("phone", "13126751000");
 		map.put("smsCode","" );
-		map.put("name", "ykw886");
-		map.put("email", "ykw86@126.com");
+		
 		param.add("json", jsonMapper.toJson(map));
 		String string = restTemplate.postForObject(location, param, String.class);
 		System.out.println(string);
